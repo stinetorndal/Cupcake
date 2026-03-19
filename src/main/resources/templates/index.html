@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
 <title>Frontpage</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,22 @@
 </head>
 
 <body>
-<h1>Velkommen til Oscars obskure observatorium</h1>
-<p>Har du lyst til at klikke på noget?</p> <br>
-<h2>Du har pause nu</h2>
+<div class="container">
+    <h1>Velkommen til Oscars opslagstavle</h1>
+    <p>Find dine opslag eller opret en bruger for at komme i gang.</p>
+
+    <div class="button-group">
+        <a href="login.html" th:href="@{/login}" class="btn primary-btn">Login</a>
+        <br><br>
+        <a href="registrerbruger.html" th:href="@{/registrerbruger}"
+           class="btn secondary-btn">Registrer bruger</a>
+    </div>
+</div>
+
+
+<!-- vis primitiv popup med bruger-oprettelse -->
+<script th:if="${showAlert}">
+    alert("[[${msg}]]");
+</script>
 </body>
 </html>
