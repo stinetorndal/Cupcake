@@ -1,6 +1,5 @@
 package app.controllers;
 
-import app.entities.Post;
 import app.app.exceptions.DatabaseException; // Rettet (fjernet det ekstra app.)
 import app.persistence.ConnectionPool;
 import app.persistence.PostMapper;

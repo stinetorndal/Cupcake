@@ -1,6 +1,5 @@
 package app.persistence;
 
-import app.entities.Post;
 import app.app.exceptions.DatabaseException;
 import java.sql.*;
 import java.util.ArrayList;
