@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Annie+Use+Your+Telescope&display=swap" rel="stylesheet">
+    <title>Olsker cupcakes - Opret bruger</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<header class="top-bar">
+    <div class="info-text">BLIV EN DEL AF OLSKER-FAMILIEN</div>
+    <div class="user-menu">
+        <a href="index.html" class="btn-min-side">OPRET BRUGER</a>
+    </div>
+</header>
+
+<section class="logo-container">
+    <h1>OPRET BRUGER</h1>
+    <div class="hotpink-line-thick"></div>
+</section>
+
+<main class="login-wrapper">
+    <form class="selection-box register-box" action="/registrer" method="post">
+
+        <label for="fname">FORNAVN</label>
+        <input type="text" id="fname" name="first_name" placeholder="Fornavn" required>
+
+        <label for="lname">EFTERNAVN</label>
+        <input type="text" id="lname" name="last_name" placeholder="Efternavn" required>
+
+        <label for="uname">BRUGERNAVN</label>
+        <input type="text" id="uname" name="username" placeholder="Vælg et brugernavn" required>
+
+        <label for="email">EMAIL</label>
+        <input type="email" id="email" name="email" placeholder="Din email" required>
+
+        <label for="pwd">ADGANGSKODE</label>
+        <input type="password" id="pwd" name="password" placeholder="Vælg adgangskode" required>
+
+        <p th:if="${msg}" th:text="${msg}" style="color: #411200; font-weight: bold; margin-top: 10px;"></p>
+
+        <button type="submit" class="btn-tilfoej">OPRET MIG</button>
+
+        <a href="login.html" class="btn-flere">LOG IND HER</a>
+    </form>
+</main>
+</main>
+
+<footer class="bottom-decoration">
+    <div class="hotpink-line-thick"></div>
+</footer>
+</body>
+</html>
