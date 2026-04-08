@@ -122,7 +122,7 @@ body {
 /* Rammen til billedet af de 6 cupcakes */
 .image-preview {
     width: 350px;
-    height: 450px;
+    height: 500px;
     border: 2px solid #411200;
     border-radius: 15px;
     overflow: hidden;
@@ -209,5 +209,26 @@ body {
     border: 2px solid #411200;
     border-radius: 20px;
     padding: 5px;
+}
+/*--- CUPCAKE GRID LAYOUT ___*/
+.cupcake-grid {
+    display: grid;
+    /*2 kolonner ved siden af hinanden */
+    grid-template-columns: repeat(2, 1fr);
+    /* 3 rækker */
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px; /* Luft mellem billederne */
+    padding: 10px;
+    background-color: #ffffff; /* Hvid baggrund til rammen */
+}
+
+.cupcake-grid img {
+    width: 100%;
+    height: 100%;
+    /* Dette sikrer at billederne ikke bliver strakt skævt */
+    object-fit: contain;
+    border-radius: 5px;
+    /* En lille fin mørkebrun kant om hvert lille billede */
+    border: 1px solid #411200;
 }
 
