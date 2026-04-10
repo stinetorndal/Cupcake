@@ -228,7 +228,27 @@ body {
     /* Dette sikrer at billederne ikke bliver strakt skævt */
     object-fit: contain;
     border-radius: 5px;
-    /* En lille fin mørkebrun kant om hvert lille billede */
     border: 1px solid #411200;
+}
+/* ---- LOGIN --- */
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 350px; /* Samme størrelse som konfigurationsboks */
+}
+
+.login-box input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 2px solid #411200;
+    border-radius: 5px;
+    box-sizing: border-box; /* Sikrer at padding ikke gør kassen for bred */
 }
 

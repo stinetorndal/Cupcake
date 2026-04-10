@@ -4,7 +4,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Annie+Use+Your+Telescope&display=swap" rel="stylesheet">
-    <title>Olsker cupcakes - forside</title>
+    <title>Olsker cupcakes - Login</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
@@ -12,14 +12,35 @@
 
 <body>
 <header class="top-bar">
-    <div class="info-text">
-        AFHENTNING HVER DAG MELLEM 13-16<br>
-        <span>Bestilling indtil hver dag samme dag</span>
+    <div class="info-text">AFHENTNING HVER DAG MELLEM 13-16</div>
+    <div class="user-menu">
+        <a href="index.html" class="btn-min-side">FORSIDE</a>
     </div>
 </header>
 
+<section class="logo-container">
+    <h1>LOG IND</h1>
+    <div class="hotpink-line-thick"></div>
+</section>
 
+<main class="login-wrapper">
+    <form class="selection-box login-box" action="/login-tjek" method="post">
+        <label for="email">EMAIL</label>
+        <input type="email" id="email" name="email" placeholder="Din email..." required>
 
+        <label for="password">PASSWORD</label>
+        <input type="password" id="password" name="password" placeholder="Dit password..." required>
 
+        <p th:if="${error}" style="color: #411200; font-weight: bold;" th:text="${error}"></p>
+
+        <button type="submit" class="btn-tilfoej">LOG IND</button>
+
+        <a href="/registrer" class="btn-flere">NY KUNDE? OPRET DIG HER</a>
+    </form>
+</main>
+
+<footer class="bottom-decoration">
+    <div class="hotpink-line-thick"></div>
+</footer>
 </body>
 </html>
