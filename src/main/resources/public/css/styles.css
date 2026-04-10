@@ -1,3 +1,4 @@
+/* --- GENEREL OPSÆTNING --- */
 .annie-use-your-telescope-regular {
     font-family: "Annie Use Your Telescope", cursive;
     font-weight: 400;
@@ -18,13 +19,14 @@ body {
     justify-content: space-between;
     padding: 15px 30px;
     background-color: #411200;
+    align-items: center;
 }
 
 .info-text {
     font-family: "Annie Use Your Telescope", cursive;
     font-weight: bold;
     font-size: 1rem;
-    color: #fff; /*valgt sort for læsbarhed*/
+    color: #fff;
 }
 
 .sub-text {
@@ -32,7 +34,36 @@ body {
     font-size: 1rem;
 }
 
-/* --- BRUGERMENU OG KNAP --- */
+/* --- SUCCESS POPUP (Brugere) --- */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background-color: #fff;
+    padding: 40px;
+    text-align: center;
+    border: 4px solid #411200;
+    max-width: 400px;
+    box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
+    border-radius: 15px;
+}
+
+.popup-content h2 {
+    color: #ff69b4;
+    margin-bottom: 10px;
+}
+
+/* --- KNAPPER OG NAVIGATION --- */
 .user-menu {
     text-align: right;
 }
@@ -42,67 +73,31 @@ body {
     font-size: 1.5rem;
     background-color: #ff69b4;
     color: #411200;
-    padding: 2px 20px;
+    padding: 5px 20px;
     text-decoration: none;
     font-weight: bold;
-    border-radius: 10px 10px;
+    border-radius: 10px;
+    display: inline-block;
+    transition: 0.3s;
 }
-.logo-container{
+
+.btn-min-side:hover {
+    background-color: #411200;
+    color: #ff69b4;
+}
+
+/* --- LOGO OG LINJER --- */
+.logo-container {
     text-align: center;
     padding: 10px 0 20px 0;
 }
+
 .logo-container h1 {
     font-size: 3.5rem;
     margin: 0;
     font-family: "Annie Use Your Telescope", cursive;
 }
 
-/* --- BANNER + ANIMATION --- */
-.banner-section {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 30px 0;
-}
-.banner-window {
-    width: 300px;
-    height: 300px;
-    overflow: hidden;
-    border: 2px solid #411200;
-    border-radius: 10px 10px;
-}
-.banner-slides {
-    display: flex;
-    width: 900%;
-    height: 100%;
-    animation: cupcakeSlide 18s infinite ease-in-out;
-}
-.banner-slides img {
-    width: 11.111%; /*svarer til at hvert billede har denne procentdel af den samlede længde*/
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Logikken:
-   Der har 9 billeder. 100% / 9 = 11% tid pr. billede. 8 billeder + det første til loop
-   For at få en pause, skal billedet stå stille (f.eks. fra 0% til 10%).
-   De sidste 2.5% af intervallet bruges på at rykke
-*/
-@keyframes cupcakeSlide {
-    0%, 9.5%      { transform: translateX(0); }
-    11.1%, 20.6%  { transform: translateX(-11.111%); }
-    22.2%, 31.7%  { transform: translateX(-22.222%); }
-    33.3%, 42.8%  { transform: translateX(-33.333%); }
-    44.4%, 53.9%  { transform: translateX(-44.444%); }
-    55.5%, 65%    { transform: translateX(-55.555%); }
-    66.6%, 76.1%  { transform: translateX(-66.666%); }
-    77.7%, 87.2%  { transform: translateX(-77.777%); }
-    88.8%, 98.3%  { transform: translateX(-88.888%); }
-    100%          { transform: translateX(0); }
-}
-.bottom-decoration {
-    padding: 40px 0;
-}
 .hotpink-line-thick {
     height: 12px;
     background-color: #ff69b4;
@@ -110,39 +105,116 @@ body {
     margin: 0 auto;
     border-radius: 20px;
 }
-.config-container {
+
+.spacer-line {
+    width: 100%;
+    margin: 20px 0;
+}
+
+.small-spacer-line {
+    width: 50%;
+    margin: 10px auto;
+}
+
+/* --- TABEL STYLING --- */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 15px;
+    border: 1px solid #411200;
+}
+
+.data-table thead {
+    background-color: #ff69b4;
+    color: white;
+}
+
+.data-table th, .data-table td {
+    padding: 12px;
+    border-bottom: 1px solid #411200;
+    text-align: center;
+}
+
+.data-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* --- ADMIN OG KUNDE NAVIGATION --- */
+.admin-nav, .customer-nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 40px;
+    gap: 20px;
     padding: 20px;
-    flex-wrap: wrap; /* Gør den mobilvenlig */
+    flex-wrap: wrap;
 }
 
-/* Rammen til billedet af de 6 cupcakes */
-.image-preview {
-    width: 350px;
-    height: 500px;
+.search-form {
+    display: flex;
+    gap: 10px;
+}
+
+.search-form input {
+    padding: 10px;
     border: 2px solid #411200;
-    border-radius: 15px;
-    overflow: hidden;
-    background-color: #fff;
+    border-radius: 5px;
+    font-size: 1rem;
 }
 
-.image-preview img {
+/* --- INDHOLD OMRÅDER --- */
+.admin-content, .customer-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 300px;
+}
+
+.view-title {
+    font-family: "Annie Use Your Telescope", cursive;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.user-details {
+    width: 80%;
+    max-width: 850px; /* Gjort lidt bredere til tabellerne */
+    margin-top: 20px;
+}
+
+.info-grid {
+    text-align: left;
+    font-size: 1.2rem;
+    display: grid;
+    gap: 10px;
+}
+
+.admin-actions, .customer-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.centered-content {
+    text-align: center;
+    margin-top: 20px;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
 }
 
-/* Den lyserøde kasse fra maleriet */
+/* --- BOXES OG FORMS --- */
 .selection-box {
-    background-color: #ffb6c1; /* En lidt blødere pink til baggrunden */
+    background-color: #ffb6c1;
     padding: 30px;
     border-radius: 15px;
     width: 300px;
     border: 2px solid #411200;
-    box-shadow: 8px 8px 0px #ff69b4; /* "Dobbelt" skygge effekt */
+    box-shadow: 8px 8px 0px #ff69b4;
 }
 
 .selection-box label {
@@ -152,7 +224,7 @@ body {
     margin-top: 15px;
 }
 
-.selection-box select {
+.selection-box select, .login-box input {
     width: 100%;
     padding: 10px;
     font-family: sans-serif;
@@ -160,29 +232,11 @@ body {
     border-radius: 5px;
     font-size: 1rem;
     color: #411200;
+    box-sizing: border-box;
 }
 
-.quantity-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 20px 0;
-    font-family: "Annie Use Your Telescope", cursive;
-    font-size: 2rem;
-}
-
-.qty-input {
-    width: 50px;
-    text-align: center;
-    font-size: 1.5rem;
-    border: none;
-    background: transparent;
-    color: #411200;
-}
-
-/* Den brune knap fra tegningen */
 .btn-tilfoej {
-    background-color: #8d6e63; /* Lysere brun */
+    background-color: #8d6e63;
     color: #fff;
     font-family: "Annie Use Your Telescope", cursive;
     font-size: 1.8rem;
@@ -198,6 +252,84 @@ body {
     background-color: #411200;
 }
 
+/* --- BANNER ANIMATION --- */
+.banner-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+.banner-window {
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+    border: 2px solid #411200;
+    border-radius: 10px;
+}
+
+.banner-slides {
+    display: flex;
+    width: 900%;
+    height: 100%;
+    animation: cupcakeSlide 18s infinite ease-in-out;
+}
+
+.banner-slides img {
+    width: 11.111%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@keyframes cupcakeSlide {
+    0%, 9.5%      { transform: translateX(0); }
+    11.1%, 20.6%  { transform: translateX(-11.111%); }
+    22.2%, 31.7%  { transform: translateX(-22.222%); }
+    33.3%, 42.8%  { transform: translateX(-33.333%); }
+    44.4%, 53.9%  { transform: translateX(-44.444%); }
+    55.5%, 65%    { transform: translateX(-55.555%); }
+    66.6%, 76.1%  { transform: translateX(-66.666%); }
+    77.7%, 87.2%  { transform: translateX(-77.777%); }
+    88.8%, 98.3%  { transform: translateX(-88.888%); }
+    100%          { transform: translateX(0); }
+}
+
+/* --- FOOTER DECORATION --- */
+.bottom-decoration {
+    padding: 40px 0;
+}
+
+/* --- GRID LAYOUT --- */
+.cupcake-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px;
+    padding: 10px;
+    background-color: #ffffff;
+}
+
+.cupcake-grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 5px;
+    border: 1px solid #411200;
+}
+
+/* --- LOGIN WRAPPER --- */
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 350px;
+}
+
 .btn-flere {
     display: block;
     text-align: center;
@@ -210,45 +342,3 @@ body {
     border-radius: 20px;
     padding: 5px;
 }
-/*--- CUPCAKE GRID LAYOUT ___*/
-.cupcake-grid {
-    display: grid;
-    /*2 kolonner ved siden af hinanden */
-    grid-template-columns: repeat(2, 1fr);
-    /* 3 rækker */
-    grid-template-rows: repeat(3, 1fr);
-    gap: 10px; /* Luft mellem billederne */
-    padding: 10px;
-    background-color: #ffffff; /* Hvid baggrund til rammen */
-}
-
-.cupcake-grid img {
-    width: 100%;
-    height: 100%;
-    /* Dette sikrer at billederne ikke bliver strakt skævt */
-    object-fit: contain;
-    border-radius: 5px;
-    border: 1px solid #411200;
-}
-/* ---- LOGIN --- */
-.login-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 50px 20px;
-}
-
-.login-box {
-    width: 100%;
-    max-width: 350px; /* Samme størrelse som konfigurationsboks */
-}
-
-.login-box input {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border: 2px solid #411200;
-    border-radius: 5px;
-    box-sizing: border-box; /* Sikrer at padding ikke gør kassen for bred */
-}
-

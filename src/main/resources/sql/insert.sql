@@ -1,4 +1,4 @@
-INSERT INTO public.bottom (name, price)
+INSERT INTO public.bottoms (name, price)
 VALUES
     ('Chokolade', 15.00),
     ('Vanille', 15.00),
@@ -6,7 +6,7 @@ VALUES
     ('Pistacie', 15.00),
     ('Mandel', 15.00);
 
-INSERT INTO public.top (name, price)
+INSERT INTO public.toppings (name, price)
 VALUES
     ('Chokolade', 15.00),
     ('Blåbær', 15.00),

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Annie+Use+Your+Telescope&display=swap" rel="stylesheet">
+    <title>Olsker cupcakes - KUNDESIDE</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<header class="top-bar">
+    <div class="info-text">
+        KUNDESIDE - OLSKER CUPCAKES<br>
+        <span class="sub-text" th:text="${session.user != null} ? 'LOGGET IND SOM: ' + ${session.user.firstName} : 'VELKOMMEN'"></span>
+    </div>
+    <div class="user-menu">
+        <a href="/logout" class="btn-min-side">LOG UD</a>
+    </div>
+</header>
+
+<section class="logo-container">
+    <h1>DIN PROFIL</h1>
+    <div class="hotpink-line-thick"></div>
+</section>
+
+<nav class="customer-nav">
+    <a href="/byg-cupcake" class="btn-min-side">KØB CUPCAKES</a>
+    <a href="/se-ordrer" class="btn-min-side">SE DINE ORDRER</a>
+    <a href="/hent-kurv" class="btn-min-side">SE GEMT INDKØBSKURV</a>
+</nav>
+
+<main class="customer-content">
+
+    <section th:if="${valgtVisning == 'kurv'}" class="selection-box customer-details">
+        <h2 class="view-title">GEMT INDKØBSKURV</h2>
+        <div class="hotpink-line-thick small-spacer-line"></div>
+
+        <table class="data-table" th:if="${kurvListe != null}">
+            <thead>
+            <tr>
+                <th>TOP</th>
+                <th>BUND</th>
+                <th>ANTAL</th>
+                <th>PRIS</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="line : ${kurvListe}">
+                <td th:text="${line.cupcake.top.name}"></td>
+                <td th:text="${line.cupcake.bottom.name}"></td>
+                <td th:text="${line.quantity}"></td>
+                <td th:text="${line.getTotalPrice()} + ' kr.'"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="centered-content" th:if="${kurvListe != null}">
+            <form action="/betal" method="post">
+                <button type="submit" class="btn-tilfoej">KØB NU</button>
+            </form>
+        </div>
+        <p class="centered-content" th:if="${kurvListe == null}">Din kurv er tom.</p>
+    </section>
+
+    <section th:if="${valgtVisning == 'historik'}" class="selection-box customer-details">
+        <h2 class="view-title">DINE ORDREHISTORIK</h2>
+        <div class="hotpink-line-thick small-spacer-line"></div>
+
+        <table class="data-table">
+            <thead>
+            <tr>
+                <th>DATO</th>
+                <th>ORDRE ID</th>
+                <th>STATUS</th>
+                <th>TOTAL</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="ordre : ${ordreHistorik}">
+                <td th:text="${ordre.createdAt}"></td>
+                <td th:text="${ordre.orderId}"></td>
+                <td th:text="${ordre.status}"></td>
+                <td th:text="${ordre.totalPrice} + ' kr.'"></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+</main>
+
+<footer class="bottom-decoration">
+    <div class="hotpink-line-thick"></div>
+</footer>
+</body>
+</html>
