@@ -44,14 +44,20 @@
         <p th:if="${msg}" th:text="${msg}" style="color: #411200; font-weight: bold; margin-top: 10px;"></p>
 
         <button type="submit" class="btn-tilfoej">OPRET MIG</button>
-
-        <a href="login.html" class="btn-flere">LOG IND HER</a>
     </form>
-</main>
 </main>
 
 <footer class="bottom-decoration">
     <div class="hotpink-line-thick"></div>
 </footer>
+<!-- if siger til Thymeleaf, vis kun boks hvis successMsg findes -->
+<div th:if="${successMsg}" class="popup-overlay">
+    <div class="selection-box popup-content">
+        <h2>Tillykke - du er oprettet!</h2>
+        <p th:text="${successMsg}"></p>
+        <div class="hotpink-line-thick" style="width: 50%; margin: 10px auto;"></div>
+        <a href="login.html" class="btn-tilfoej">LOG IND HER</a>
+    </div>
+</div>
 </body>
 </html>
