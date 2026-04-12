@@ -1,12 +1,16 @@
 package app.persistence;
 
 import app.app.exceptions.DatabaseException;
+import app.entities.Bottom;
+import app.entities.CupcakeComponent;
+import app.entities.Topping;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CupcakeComponentMapper {
 
@@ -23,7 +27,7 @@ public class CupcakeComponentMapper {
                 int componentId = rs.getInt("topping_id");
                 String name = rs.getString("name");
                 double price = rs.getDouble("price");
-                allToppings.add(new CupcakeComponent(componentId, name, price));
+                allToppings.add(new Topping(componentId, name, price));
             }
         } catch (SQLException e) {
             throw new DatabaseException("FEJL! Kunne ikke finde toppings. " + e.getMessage());
@@ -44,7 +48,7 @@ public class CupcakeComponentMapper {
                 int componentId = rs.getInt("bottom_id");
                 String name = rs.getString("name");
                 double price = rs.getDouble("price");
-                allBottoms.add(new CupcakeComponent(componentId, name, price));
+                allBottoms.add(new Bottom(componentId, name, price));
             }
         } catch (SQLException e) {
             throw new DatabaseException("FEJL! Kunne ikke finde bottoms. " + e.getMessage());
