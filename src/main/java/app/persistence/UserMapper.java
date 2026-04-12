@@ -97,7 +97,7 @@ public class UserMapper {
     // Her opdaterer admin saldo:
     public static void updateBalance(int userId, double amount, ConnectionPool connectionPool)
             throws DatabaseException {
-        String sql = "UPDATE users SET balance = balance + ? WHERE user_ud = ?";
+        String sql = "UPDATE users SET balance = balance + ? WHERE user_id = ?";
 
 
         try (Connection connection = connectionPool.getConnection();
