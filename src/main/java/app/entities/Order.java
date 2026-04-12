@@ -1,0 +1,43 @@
+package app.entities;
+
+import java.time.LocalDate;
+
+public class Order {
+    int orderId;
+    int userId;
+    LocalDate timeStamp;
+    ShoppingCart shoppingCart;
+
+    public Order(int orderId, int userId, LocalDate timeStamp, ShoppingCart shoppingCart) {
+        this.orderId = orderId;
+        this.userId = userId;
+        this.timeStamp = timeStamp;
+        this.shoppingCart = shoppingCart;
+    }
+
+    public int getOrderId() { return orderId; }
+
+    public void setOrderId(int orderId) { this.orderId = orderId; }
+
+    public int getUserId() { return userId; }
+
+    public void setUserId(int userId) { this.userId = userId; }
+
+    public LocalDate getTimeStamp() { return timeStamp; }
+
+    public void setTimeStamp(LocalDate timeStamp) { this.timeStamp = timeStamp; }
+
+    public ShoppingCart getShoppingCart() { return shoppingCart; }
+
+    public void setShoppingCart(ShoppingCart shoppingCart) { this.shoppingCart = shoppingCart; }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "orderId=" + orderId +
+                ", userId=" + userId +
+                ", timeStamp=" + timeStamp +
+                ", shoppingCart=" + shoppingCart +
+                '}';
+    }
+}
