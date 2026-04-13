@@ -3,20 +3,20 @@ package app.entities;
 import java.util.List;
 
 public class ShoppingCart {
-    private List<Orderline> Orderlines;
+    private List<OrderLine> orderlines;
 
-    public ShoppingCart(List<Orderline> orderlines) {
-        Orderlines = orderlines;
+    public ShoppingCart(List<OrderLine> orderlines) {
+        this.orderlines = orderlines;
     }
 
-    public List<Orderline> getOrderlines() { return Orderlines; }
+    public List<OrderLine> getOrderLines() { return orderlines; }
 
-    public void setOrderlines(List<Orderline> orderlines) { Orderlines = orderlines; }
+    public void setOrderLines(List<OrderLine> orderlines) { this.orderlines = orderlines; }
 
     @Override
     public String toString() {
         return "ShoppingCart{" +
-                "Orderlines=" + Orderlines +
+                "Order lines = " + orderlines +
                 '}';
     }
 }
