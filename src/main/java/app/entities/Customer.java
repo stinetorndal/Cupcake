@@ -1,7 +1,7 @@
 package app.entities;
 
 public class Customer extends User{
-    double balance;
+    private double balance;
 
     public Customer(int user_id, String firstName, String lastName, String email, String password, String role, double balance) {
         super(user_id, firstName, lastName, email, password, role);
