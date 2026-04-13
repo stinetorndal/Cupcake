@@ -10,9 +10,23 @@ public class LoginPassword {
         // Arrange
         // Act
         // Forventet værdi
-        String error = Validator.validateUser ("", "12345678");
+        String error = Validator.validateEmail("");
         // Assert (forventet værdi, faktisk værdi)
         assertEquals("Email skal udfyldes", error);
+    }
+
+    @Test
+    // Tester om man kan logge ind med email-adresse udfyldt
+    void shouldAcceptWrittenEmailField () {
+        String error = Validator.validateEmail("jan-olsker.dk");
+        assertEquals("Email skal indeholde @", error);
+    }
+
+    @Test
+    // Tester om password følger regler
+    void isPasswordCorrect () {
+        String error = Validator.validatePassword("12345678");
+        assertEquals("Password skal indeholde mindst 8 tegn", error);
     }
 
     //Planlagte tests:
