@@ -8,6 +8,11 @@ public class Customer extends User{
         this.balance = balance;
            }
 
+    public Customer(String firstName, String lastName, String email, String password) {
+        super(firstName, lastName, email, password);
+
+    }
+
     public double getBalance() { return balance; }
 
     public void setBalance(double balance) { this.balance = balance; }

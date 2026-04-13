@@ -1,5 +1,6 @@
 package app.controllers;
 import app.app.exceptions.DatabaseException;
+import app.entities.Customer;
 import app.entities.User;
 import app.persistence.ConnectionPool;
 import app.persistence.UserMapper;
@@ -13,7 +14,7 @@ public class UserController {
     public void addRoutes(Javalin app, ConnectionPool connectionPool) {
 
         app.get("/registrerbruger", ctx -> ctx.render("registrerbruger.html"));
-        app.post("/new", ctx -> registrerBruger(ctx, connectionPool));
+        app.post("/new", ctx -> registerNewCustomer(ctx, connectionPool));
         app.get("/login", ctx -> ctx.render("login.html"));
         app.post("/login", ctx -> login(ctx, connectionPool));
         app.post("/logout", ctx -> logout(ctx));
@@ -43,16 +44,18 @@ public class UserController {
         }
     }
 
-    public void registrerBruger(Context ctx, ConnectionPool connectionPool) {
-        String username = ctx.formParam("username");
-        String password = ctx.formParam("password");
+    public void registerNewCustomer(Context ctx, ConnectionPool connectionPool) {
+        Customer customer = new Customer(ctx.formParam("firstName"), ctx.formParam("lastName"), ctx.formParam("email"), ctx.formParam("password"));
+        //String email = ctx.formParam("username");
+        //String password = ctx.formParam("password");
+
 
         try{
             //Mapperlag kaldes, som så skriver til DB
-            UserMapper.createuser(username, password, connectionPool);
+            UserMapper.createUser(customer, connectionPool);
             //Laver en primitiv popup med brugeroprettelse
             ctx.attribute("showAlert", true);
-            ctx.attribute("msg", "Brugeren: " + username + " er nu oprettet");
+            ctx.attribute("msg", "Brugeren: " + customer.getEmail() + " er nu oprettet");
             //slut med popup og tilbage til forside
             ctx.render("index.html");
 

@@ -1,5 +1,6 @@
 package app.persistence;
 
+import app.entities.Customer;
 import app.entities.User;
 /*
 import app.entities.Customer; // Hvis du har en Customer subklasse
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserMapper {
-    public static void createUser(String firstName, String lastName, String email, String password, ConnectionPool connectionPool)
+    public static void createUser(User user, ConnectionPool connectionPool)
             throws DatabaseException {
 
         String sql = "INSERT INTO users (first_name, last_name, email, password, role, balance) VALUES (?,?, ?, ?, 'customer', 0.00)";
@@ -20,10 +21,10 @@ public class UserMapper {
                 Connection connection = connectionPool.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)
         ) {
-            ps.setString(1, firstName);
-            ps.setString(2, lastName);
-            ps.setString(3, email);
-            ps.setString(4, password);
+            ps.setString(1, user.getFirstName());
+            ps.setString(2, user.getLastName());
+            ps.setString(3, user.getEmail());
+            ps.setString(4, user.getPassword());
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected != 1) {
@@ -56,8 +57,7 @@ public class UserMapper {
                 String firstName = rs.getString("first_name");
                 String lastName = rs.getString("last_name");
                 String role = rs.getString("role");
-                double balance = rs.getDouble("balance");
-                return new User(id, firstName, lastName, email, password, role, balance);
+                return new User(id, firstName, lastName, email, password, role);
             } else {
                 throw new DatabaseException("Fejl i login. Prøv igen.");
             }
@@ -67,9 +67,9 @@ public class UserMapper {
     }
 
     // Her henter admin alle kunder
-    public static List<User> getAllCustomers(ConnectionPool connectionPool)
+    public static List<Customer> getAllCustomers(ConnectionPool connectionPool)
             throws DatabaseException {
-        List<User> userList = new ArrayList<>();
+        List<Customer> customerList = new ArrayList<>();
 
         // BEMÆRK! Sorteret efter last_name. Kan ændres efter behov
         String sql = "SELECT * FROM users WHERE role = 'customer' ORDER BY last_name";
@@ -85,12 +85,12 @@ public class UserMapper {
                 String lName = rs.getString("last_name");
                 String email = rs.getString("email");
                 double balance = rs.getDouble("balance");
-                userList.add(new User(id, fName, lName, email, "", "customer", balance));
+                customerList.add(new Customer(id, fName, lName, email, "", "customer", balance));
             }
         } catch (SQLException e) {
             throw new DatabaseException("Fejl ved hentning af kundeliste: " + e.getMessage());
         }
-        return userList;
+        return customerList;
     }
 
 
