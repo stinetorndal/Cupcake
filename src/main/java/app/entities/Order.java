@@ -3,10 +3,10 @@ package app.entities;
 import java.time.LocalDate;
 
 public class Order {
-    int orderId;
-    int userId;
-    LocalDate timeStamp;
-    ShoppingCart shoppingCart;
+    private int orderId;
+    private int userId;
+    private LocalDate timeStamp;
+    private ShoppingCart shoppingCart;
 
     public Order(int orderId, int userId, LocalDate timeStamp, ShoppingCart shoppingCart) {
         this.orderId = orderId;
@@ -34,10 +34,10 @@ public class Order {
     @Override
     public String toString() {
         return "Order{" +
-                "orderId=" + orderId +
-                ", userId=" + userId +
-                ", timeStamp=" + timeStamp +
-                ", shoppingCart=" + shoppingCart +
+                "order id = " + orderId +
+                ", user id = " + userId +
+                ", time stamp = " + timeStamp +
+                ", shopping cart = " + shoppingCart +
                 '}';
     }
 }
