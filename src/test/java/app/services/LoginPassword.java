@@ -25,8 +25,8 @@ public class LoginPassword {
     @Test
     // Tester om password følger regler
     void isPasswordCorrect () {
-        String error = Validator.validatePassword("12345678");
-        assertEquals("Password skal indeholde mindst 8 tegn", error);
+        String error = Validator.validatePassword("1234567");
+        assertEquals("Adgangskode skal indeholde mindst 8 tegn", error);
     }
 
     //Planlagte tests:

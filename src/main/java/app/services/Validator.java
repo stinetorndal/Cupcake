@@ -34,7 +34,7 @@ public class Validator {
 
     public static String validatePassword (String password) {
         if (password == null || password.length() < 8) {
-            return "Adgangskode skal være mindst 8 tegn";
+            return "Adgangskode skal indeholde mindst 8 tegn";
         }
         return null;
     }
