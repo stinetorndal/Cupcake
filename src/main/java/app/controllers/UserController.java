@@ -47,7 +47,12 @@ public class UserController {
             User user = UserMapper.login(email, password, connectionPool);
             // Bruger gemmes i session
             ctx.sessionAttribute("currentUser", user);
-            ctx.render("bygdinegencupcake.html");
+
+            if (user.getRole().equals("admin")) {
+                ctx.render("admin.html");
+            }else {
+                ctx.render("bygdinegencupcake.html");
+            }
 
         } catch (DatabaseException e) {
             // Hvis login fejler (forkert password osv.)

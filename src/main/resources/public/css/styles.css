@@ -259,3 +259,44 @@ body {
     border: 4px solid #411200;
     border-radius: 15px;
 }
+/* --- ADMIN-SIDE --- */
+/* Containeren der styrer de to rækker */
+.admin-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Søge-sektionen */
+.search-wrap {
+    width: 100%;
+    max-width: 600px; /* Her styres bredde af søgefelt */
+}
+
+.search-form {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+}
+
+.search-form input {
+    flex-grow: 1;
+    padding: 12px;
+    border: 2px solid #411200;
+    border-radius: 8px;
+    font-size: 1.1rem;
+}
+
+/* Knappe-sektionen */
+.button-wrap {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.button-wrap .btn-min-side {
+    min-width: 150px;
+    text-align: center;
+}
