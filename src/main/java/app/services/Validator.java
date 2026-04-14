@@ -27,8 +27,8 @@ public class Validator {
         if (splitEmail.length < 2) {
             return  false;
         }
-        //Anden del, der indeholder domæne og suffix
-        String domain = splitEmail[2];
+        //Anden del, der indeholder domæne og suffix position[0] og [1]
+        String domain = splitEmail[1];
         return domain.contains(".");
     }
 

@@ -24,16 +24,13 @@
 </section>
 
 <main class="login-wrapper">
-    <form class="selection-box register-box" action="/registrer" method="post">
+    <form class="selection-box register-box" action="/register" method="post">
 
         <label for="fname">FORNAVN</label>
-        <input type="text" id="fname" name="first_name" placeholder="Fornavn" required>
+        <input type="text" id="fname" name="firstname" placeholder="Fornavn" required>
 
         <label for="lname">EFTERNAVN</label>
-        <input type="text" id="lname" name="last_name" placeholder="Efternavn" required>
-
-        <label for="uname">BRUGERNAVN</label>
-        <input type="text" id="uname" name="username" placeholder="Vælg et brugernavn" required>
+        <input type="text" id="lname" name="lastname" placeholder="Efternavn" required>
 
         <label for="email">EMAIL</label>
         <input type="email" id="email" name="email" placeholder="Din email" required>
@@ -41,7 +38,7 @@
         <label for="pwd">ADGANGSKODE</label>
         <input type="password" id="pwd" name="password" placeholder="Vælg adgangskode" required>
 
-        <p th:if="${msg}" th:text="${msg}" style="color: #411200; font-weight: bold; margin-top: 10px;"></p>
+        <p th:if="${message}" th:text="${message}" style="color: #411200; font-weight: bold; margin-top: 10px;"></p>
 
         <button type="submit" class="btn-tilfoej">OPRET MIG</button>
     </form>
@@ -53,10 +50,10 @@
 <!-- if siger til Thymeleaf, vis kun boks hvis successMsg findes -->
 <div th:if="${successMsg}" class="popup-overlay">
     <div class="selection-box popup-content">
-        <h2>Tillykke - du er oprettet!</h2>
+        <h2>Tillykke!</h2>
         <p th:text="${successMsg}"></p>
-        <div class="hotpink-line-thick" style="width: 50%; margin: 10px auto;"></div>
-        <a href="login.html" class="btn-tilfoej">LOG IND HER</a>
+        <div class="hotpink-line-thick popup-line"></div>
+        <a th:href="@{/login}" class="btn-tilfoej">LOG IND HER</a>
     </div>
 </div>
 </body>
