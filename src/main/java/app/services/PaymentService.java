@@ -16,13 +16,16 @@ public class PaymentService {
         // 2. Beregn den nye balance vha. hjælpemetoden
         double newBalance = calculateNewBalance(customer.getBalance(), total);
         customer.setBalance(newBalance);
-        UserMapper.updateBalance(customer.getUserId(), -total,connectionPool);
+        UserMapper.updateBalance(customer.getUserId(), -total, connectionPool);
+    }
 
-
-}
-
-        private static double calculateNewBalance (double currentBalance, double amountToWithdraw)  {
+    //Hjælpemetode
+    private static double calculateNewBalance(double currentBalance, double amountToWithdraw) {
         return currentBalance - amountToWithdraw;
-        }
+    }
+
+    public static double calculateVAT(double total) {
+        return total * 0.20;
+    }
 
 }

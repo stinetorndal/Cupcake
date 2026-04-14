@@ -63,4 +63,17 @@ public class OrderMapper {
             throw new DatabaseException("Databasefejl ved opdatering af antal", e.getMessage());
         }
     }
+
+    public static void saveOrderInDB(int userId, ConnectionPool connectionPool) throws DatabaseException {
+        String sql = "INSERT INTO orders (user_id, status) VALUES (?, 'pending')";
+
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+                 ps.setInt(1, userId);
+                 ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new DatabaseException("Fejl ved oprettelse af ordre: " + e.getMessage());
+        }
+    }
 }

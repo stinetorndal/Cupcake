@@ -3,9 +3,12 @@ package app.controllers;
 import app.app.exceptions.DatabaseException;
 import app.entities.Customer;
 import app.persistence.ConnectionPool;
+import app.persistence.OrderMapper;
 import app.services.PaymentService;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
+
+import java.sql.Connection;
 
 public class OrderController {
 
@@ -17,21 +20,26 @@ public class OrderController {
         app.get("/ordrebekraeftelse.html", ctx -> ctx.render ("ordrebekraeftelse.html"));
     }
 
-    public void handlePayment(Context ctx, ConnectionPool connectionPool) {
-        Customer customer = ctx.sessionAttribute("currentUser");
 
-        //Hent kurv og beregn total, dummyværdi indtil kurv er klar
-        double total = 30.0;
+    public void handlePayment (Context ctx, ConnectionPool connectionPool) {
+        Customer customer = ctx.sessionAttribute("currentUser");
+        double total = 30.0; //Dummy fra kurven til test
+
         try {
-            //Her forsøger jeg at betale
+            // Betaling
             PaymentService.Payment(customer, total, connectionPool);
-            //Hvis det går godt:
-            ctx.sessionAttribute("message", "Betaling gennemført");
-            ctx.redirect("/ordrebekraeftelse");
+            // Gem ordre
+            OrderMapper.saveOrderInDB(customer.getUserId(), connectionPool);
+            //Send tal til ordrebekraeftelse.html
+            ctx.attribute("total", total);
+            ctx.attribute("moms", PaymentService.calculateVAT(total));
+
+            ctx.render("ordrebekraeftelse.html");
+
         } catch (DatabaseException e) {
-            //I tilfælde af fejl:
             ctx.attribute("message", e.getMessage());
             ctx.render("kurv.html");
         }
+
     }
 }
