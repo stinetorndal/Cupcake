@@ -43,7 +43,7 @@ public class Payment {
 
         } catch (DatabaseException e) {
             // 3. Assert
-            // Her tjekker vi, om din fejlbesked er rigtig
+            // Er fejlbesked rigtig
             assertEquals("Ordren kan ikke gennemføres, indsæt venligst flere penge på din konto", e.getMessage());
         }
     }
@@ -61,7 +61,7 @@ public class Payment {
 
         } catch (DatabaseException e) {
             // 3. Assert
-            // Her tjekker vi, om din fejlbesked er rigtig
+            // Er fejlbesked rigtig
             fail("Betaling fejlede, selvom kunden havde penge nok på konto");
         }
     }
