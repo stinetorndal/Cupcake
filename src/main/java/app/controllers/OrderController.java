@@ -11,7 +11,7 @@ public class OrderController {
 
     public void addRoutes(Javalin app, ConnectionPool connectionPool) {
 
-        app.get("/betaling", ctx -> ctx.render("betaling.html"));
+        app.get("/kurv", ctx -> ctx.render("kurv.html"));
         //Når kunde klikker på betaling, "pay" ligger i html:
         app.post("/pay", ctx -> handlePayment(ctx, connectionPool));
         app.get("/ordrebekraeftelse.html", ctx -> ctx.render ("ordrebekraeftelse.html"));
@@ -31,7 +31,7 @@ public class OrderController {
         } catch (DatabaseException e) {
             //I tilfælde af fejl:
             ctx.attribute("message", e.getMessage());
-            ctx.render("betaling.html");
+            ctx.render("kurv.html");
         }
     }
 }
