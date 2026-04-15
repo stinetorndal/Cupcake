@@ -24,9 +24,12 @@ public class OrderController {
     public void handlePayment (Context ctx, ConnectionPool connectionPool) {
         Customer customer = ctx.sessionAttribute("currentUser");
         ShoppingCart shoppingCart = ctx.sessionAttribute("shoppingcart");
+
         if (shoppingCart == null || shoppingCart.getOrderLines().isEmpty()) {
             ctx.attribute("message", "Din kurv er tom");
+            ctx.attribute("shoppincart", shoppingCart);
             ctx.render("kurv.html");
+            return;
         }
             double total = shoppingCart.getTotalPrice();
 
@@ -35,6 +38,11 @@ public class OrderController {
                 PaymentService.Payment(customer, total, connectionPool);
                 // Gem ordre
                 OrderMapper.saveOrderInDB(customer.getUserId(), connectionPool);
+                //Træk penge lokalt, så saldo passer med det samme
+                customer.setBalance((customer.getBalance() -  total));
+                ctx.sessionAttribute("currentUser", customer);
+                //Opdater session
+                ctx.sessionAttribute("shoppingcart", null);
                 //Send tal til ordrebekraeftelse.html
                 ctx.attribute("total", total);
                 ctx.attribute("moms", PaymentService.calculateVAT(total));
