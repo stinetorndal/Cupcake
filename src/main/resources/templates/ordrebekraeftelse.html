@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Annie+Use+Your+Telescope&display=swap" rel="stylesheet">
+    <title>Olsker cupcakes - Byg din egen</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<header class="top-bar">
+    <div class="info-text">
+        DU ER LOGGET IND SOM: <span th:text="${session.user.email}">bruger1234</span>
+    </div>
+    <div class="user-menu">
+        <a href="ordrebekraeftelse.html" class="btn-min-side">KURV</a>
+    </div>
+</header>
+
+<section class="logo-container">
+    <h1 class="view-title">Tak for din bestilling!</h1>
+    <div class="hotpink-line-thick"></div>
+</section>
+
+<main class="admin-content">
+    <div class="selection-box" style="width: 450px; text-align: center;">
+        <h2 class="annie-use-your-telescope-regular">Betaling gennemført</h2>
+        <p>Din betaling er gået igennem. Din ordre bliver nu behandlet.</p>
+        <p>En ordrebekræftelse er sendt til din email:</p>
+        <p><strong><span th:text="${session.currentUser.email}">test@test.dk</span></strong></p>
+    </div>
+
+    <div class="centered-content">
+        <a href="/" class="btn-min-side">TILBAGE TIL FORSIDE</a>
+    </div>
+</main>
+
+<footer class="bottom-decoration">
+    <div class="hotpink-line-thick"></div>
+</footer>
+
+</body>
+</html>

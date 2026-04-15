@@ -188,6 +188,72 @@ body {
     border: 2px solid #411200;
     border-radius: 10px;
 }
+/* --- BETALINGSSIDE LAYOUT --- */
+.payment-wrapper {
+    display: flex;
+    gap: 40px;
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.left-side {
+    flex: 2;
+}
+
+.right-side {
+    flex: 1;
+}
+
+.content-box {
+    background-color: #fff;
+    border: 2px solid #411200;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    color: #411200;
+}
+
+.content-box h2 {
+    font-family: "Annie Use Your Telescope", cursive;
+    font-size: 2rem;
+    margin-top: 0;
+}
+
+.price-summary {
+    background-color: #ffb6c1;
+    border: 2px solid #411200;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 8px 8px 0px #ff69b4;
+}
+
+.total-row {
+    font-family: "Annie Use Your Telescope", cursive;
+    font-size: 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #411200;
+    margin-bottom: 10px;
+}
+
+.moms-text {
+    text-align: right;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.error-message {
+    color: #411200;
+    font-weight: bold;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.btn-pay {
+    margin-top: 20px;
+    /* Her genbruges logikken .btn-tilfoej */
+}
 
 .banner-slides {
     display: flex;

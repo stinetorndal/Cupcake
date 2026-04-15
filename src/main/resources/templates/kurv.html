@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Annie+Use+Your+Telescope&display=swap" rel="stylesheet">
+    <title>Olsker cupcakes - Byg din egen</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<header class="top-bar">
+    <div class="info-text">
+        DU ER LOGGET IND SOM: <span th:text="${session.user.email}">bruger1234</span>
+    </div>
+    <div class="user-menu">
+        <a href="kurv.html" class="btn-min-side">KURV</a>
+    </div>
+</header>
+
+<section class="logo-container">
+    <h1 class="view-title">Gennemfør din bestilling</h1>
+    <div class="hotpink-line-thick"></div>
+</section>
+
+<main class="payment-wrapper">
+
+    <div class="left-side">
+        <div class="content-box">
+            <h2>Din Information</h2>
+            <p><strong>Navn:</strong> <span th:text="${session.currentUser.firstName + ' ' + session.currentUser.lastName}">Stine Jensen</span></p>
+            <p><strong>Email:</strong> <span th:text="${session.currentUser.email}">stine@test.dk</span></p>
+            <p><strong>Din Saldo:</strong> <span th:text="${session.currentUser.balance}">100</span> kr.</p>
+        </div>
+
+        <div class="content-box">
+            <h2>Ordreoversigt</h2>
+            <table class="data-table">
+                <thead>
+                <tr>
+                    <th>Beskrivelse</th>
+                    <th>Antal</th>
+                    <th>Pris</th>
+                </tr>
+                <div class="navigation-buttons">
+                    <a href="/shop" class="btn-flere">← Tilbage til bestilling</a>
+                </div>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Chokolade m. Vanilje</td>
+                    <td>2 stk</td>
+                    <td>30.00 kr.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="right-side">
+        <div class="price-summary">
+            <div class="total-row">
+                <span>Total:</span>
+                <span>30.00 kr.</span>
+            </div>
+            <p class="moms-text">Heraf moms: 7.50 kr.</p>
+
+            <form action="/pay" method="post">
+                <button type="submit" class="btn-tilfoej">BETAL NU</button>
+            </form>
+
+            <p th:if="${message}" class="error-message" th:text="${message}"></p>
+        </div>
+    </div>
+</main>
+
+<footer class="bottom-decoration">
+    <div class="hotpink-line-thick"></div>
+</footer>
+
+</body>
+</html>
