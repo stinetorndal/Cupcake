@@ -5,6 +5,7 @@ import app.entities.Bottom;
 import app.entities.Cupcake;
 import app.entities.OrderLine;
 import app.entities.Topping;
+import app.services.ShoppingCartService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderLineMapper {
+
+    private static ShoppingCartService shoppingCartService = new ShoppingCartService();
+
     //CRUD - Create, Read, Update, Delete.
 
     //Skal der være en updateOrderLine() ?????
