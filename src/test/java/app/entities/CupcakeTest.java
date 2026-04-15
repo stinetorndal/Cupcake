@@ -7,14 +7,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class CupcakeTest {
 
     @Test
-    void getTotalPrice() {
+    void getUnitPrice() {
         //Arrange – sæt testen op (opret de objekter du skal bruge)
         Topping t1 = new Topping(1, "jordbær", 10.0);
         Bottom b1 = new Bottom(1, "chokolade", 15.0);
         Cupcake cupcake = new Cupcake(t1, b1);
 
         //Act – kald den metode du vil teste
-        double totalPrice = cupcake.getTotalPrice();
+        double totalPrice = cupcake.getUnitPrice();
 
         //Assert – tjek at resultatet er det forventede
         assertEquals(25.0, totalPrice);

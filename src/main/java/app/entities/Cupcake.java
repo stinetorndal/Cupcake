@@ -10,7 +10,7 @@ public class Cupcake {
         this.bottom = bottom;
     }
 
-    public double getTotalPrice() {
+    public double getUnitPrice() {
         return topping.getPrice() + bottom.getPrice();
     }
 
