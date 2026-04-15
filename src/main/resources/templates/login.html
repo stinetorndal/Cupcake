@@ -24,18 +24,19 @@
 </section>
 
 <main class="login-wrapper">
-    <form class="selection-box login-box" action="/login-tjek" method="post">
+    <form class="selection-box login-box" action="/login" method="post">
         <label for="email">EMAIL</label>
         <input type="email" id="email" name="email" placeholder="Din email..." required>
 
         <label for="password">PASSWORD</label>
+
         <input type="password" id="password" name="password" placeholder="Dit password..." required>
 
-        <p th:if="${error}" style="color: #411200; font-weight: bold;" th:text="${error}"></p>
-
+        <p th:if="${message}" style="color: #411200; font-weight: bold;" th:text="${message}"></p>
+        <br><br>
         <button type="submit" class="btn-tilfoej">LOG IND</button>
-
-        <a href="opretbruger.html" class="btn-flere">NY KUNDE? OPRET DIG HER</a>
+        <br>
+        <a href="opretbruger" class="btn-flere">NY KUNDE? OPRET DIG HER</a>
     </form>
 </main>
 

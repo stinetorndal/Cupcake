@@ -10,6 +10,8 @@ public class OrderMapper {
         String sql = "INSERT INTO orders (user_id, status) VALUES (?, 'pending')";
 
         try (Connection connection = connectionPool.getConnection();
+             //GENERATED_KEYS: Fordi order_id = SERIAL i DB, DB sender id tilbage til os, så vi
+             //via ResultSet kan knytte ordrelinjer til korrekte ordre-id
              PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setInt(1, userId);

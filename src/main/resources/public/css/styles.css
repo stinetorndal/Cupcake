@@ -29,40 +29,6 @@ body {
     color: #fff;
 }
 
-.sub-text {
-    font-weight: normal;
-    font-size: 1rem;
-}
-
-/* --- SUCCESS POPUP (Brugere) --- */
-.popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.popup-content {
-    background-color: #fff;
-    padding: 40px;
-    text-align: center;
-    border: 4px solid #411200;
-    max-width: 400px;
-    box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
-    border-radius: 15px;
-}
-
-.popup-content h2 {
-    color: #ff69b4;
-    margin-bottom: 10px;
-}
-
 /* --- KNAPPER OG NAVIGATION --- */
 .user-menu {
     text-align: right;
@@ -106,16 +72,6 @@ body {
     border-radius: 20px;
 }
 
-.spacer-line {
-    width: 100%;
-    margin: 20px 0;
-}
-
-.small-spacer-line {
-    width: 50%;
-    margin: 10px auto;
-}
-
 /* --- TABEL STYLING --- */
 .data-table {
     width: 100%;
@@ -138,73 +94,41 @@ body {
     text-align: center;
 }
 
-.data-table tbody tr:last-child td {
-    border-bottom: none;
-}
-
-/* --- ADMIN OG KUNDE NAVIGATION --- */
-.admin-nav, .customer-nav {
+/* --- BYG-SELV SIDEN (SIDE-BY-SIDE LAYOUT) --- */
+.config-container {
     display: flex;
+    flex-direction: row;      /* HER tvinger vi dem til at stå ved siden af hinanden */
+    flex-wrap: nowrap;        /* De må IKKE hoppe under hinanden */
     justify-content: center;
-    align-items: center;
-    gap: 20px;
-    padding: 20px;
-    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 50px;
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.search-form {
-    display: flex;
-    gap: 10px;
+.cupcake-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 200px); /* Faste pixels så de ikke fylder alt */
+    grid-template-rows: repeat(3, 200px);
+    gap: 15px;
+    flex-shrink: 0;           /* Forhindrer at gridet bliver mast */
 }
 
-.search-form input {
-    padding: 10px;
-    border: 2px solid #411200;
-    border-radius: 5px;
-    font-size: 1rem;
+.cupcake-grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 3px solid #411200;
+    box-shadow: 5px 5px 0px #ff69b4;
 }
 
-/* --- INDHOLD OMRÅDER --- */
-.admin-content, .customer-content {
-    padding: 20px;
+.config-form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 300px;
-}
-
-.view-title {
-    font-family: "Annie Use Your Telescope", cursive;
-    font-size: 2.5rem;
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-.user-details {
-    width: 80%;
-    max-width: 850px; /* Gjort lidt bredere til tabellerne */
-    margin-top: 20px;
-}
-
-.info-grid {
-    text-align: left;
-    font-size: 1.2rem;
-    display: grid;
-    gap: 10px;
-}
-
-.admin-actions, .customer-actions {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 20px;
-}
-
-.centered-content {
-    text-align: center;
-    margin-top: 20px;
-    width: 100%;
+    flex-shrink: 0;
 }
 
 /* --- BOXES OG FORMS --- */
@@ -248,13 +172,10 @@ body {
     transition: 0.3s;
 }
 
-.btn-tilfoej:hover {
-    background-color: #411200;
-}
-
-/* --- BANNER ANIMATION --- */
+/* --- BANNER ANIMATION (INDEX) --- */
 .banner-section {
     display: flex;
+    flex-direction: column; /* Centrerer animationen alene på index */
     align-items: center;
     justify-content: center;
     margin: 30px 0;
@@ -294,40 +215,14 @@ body {
     100%          { transform: translateX(0); }
 }
 
-/* --- FOOTER DECORATION --- */
-.bottom-decoration {
-    padding: 40px 0;
-}
+/* --- FOOTER & LOGIN WRAPPER --- */
+.bottom-decoration { padding: 40px 0; }
 
-/* --- GRID LAYOUT --- */
-.cupcake-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    gap: 10px;
-    padding: 10px;
-    background-color: #ffffff;
-}
-
-.cupcake-grid img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    border-radius: 5px;
-    border: 1px solid #411200;
-}
-
-/* --- LOGIN WRAPPER --- */
 .login-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 50px 20px;
-}
-
-.login-box {
-    width: 100%;
-    max-width: 350px;
 }
 
 .btn-flere {
@@ -341,4 +236,67 @@ body {
     border: 2px solid #411200;
     border-radius: 20px;
     padding: 5px;
+}
+
+/* --- POPUP STYLING --- */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.popup-content {
+    background-color: #ffffff;
+    text-align: center;
+    padding: 20px;
+    border: 4px solid #411200;
+    border-radius: 15px;
+}
+/* --- ADMIN-SIDE --- */
+/* Containeren der styrer de to rækker */
+.admin-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Søge-sektionen */
+.search-wrap {
+    width: 100%;
+    max-width: 600px; /* Her styres bredde af søgefelt */
+}
+
+.search-form {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+}
+
+.search-form input {
+    flex-grow: 1;
+    padding: 12px;
+    border: 2px solid #411200;
+    border-radius: 8px;
+    font-size: 1.1rem;
+}
+
+/* Knappe-sektionen */
+.button-wrap {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.button-wrap .btn-min-side {
+    min-width: 150px;
+    text-align: center;
 }
