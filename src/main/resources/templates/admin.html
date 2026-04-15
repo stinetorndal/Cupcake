@@ -27,12 +27,17 @@
 </section>
 
 <nav class="admin-nav">
-    <form action="/admin/soeg" method="post" class="search-form">
-        <input type="text" name="email" placeholder="Søg på email..." required>
-        <button type="submit" class="btn-min-side">SØG KUNDE</button>
-    </form>
-    <a href="/admin/alle-kunder" class="btn-min-side">ALLE KUNDER</a>
-    <a href="/admin/alle-ordrer" class="btn-min-side">ALLE ORDRER</a>
+    <div class="search-wrap">
+        <form action="/admin/soeg" method="post" class="search-form">
+            <input type="text" name="email" placeholder="Søg på email..." required>
+            <button type="submit" class="btn-min-side">SØG KUNDE</button>
+        </form>
+    </div>
+
+    <div class="button-wrap">
+        <a href="/admin/alle-kunder" class="btn-min-side">ALLE KUNDER</a>
+        <a href="/admin/alle-ordrer" class="btn-min-side">ALLE ORDRER</a>
+    </div>
 </nav>
 
 <main class="admin-content">
