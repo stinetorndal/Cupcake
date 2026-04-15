@@ -1,6 +1,10 @@
 import app.config.SessionConfig;
 import app.config.ThymeleafConfig;
+import app.controllers.CupcakeController;
+import app.controllers.OrderController;
+import app.controllers.ShoppingCartController;
 import app.controllers.UserController;
+import app.entities.ShoppingCart;
 import app.persistence.ConnectionPool;
 import app.persistence.DBconfig;
 import io.javalin.Javalin;
@@ -20,13 +24,19 @@ public static void main(String[] args) {
         config.staticFiles.add("/public");
         config.jetty.modifyServletContextHandler(handler -> handler.setSessionHandler(SessionConfig.sessionConfig()));
         config.fileRenderer(new JavalinThymeleaf(ThymeleafConfig.templateEngine()));
-    }).start(7070);
+    }).start(7071);
 
     UserController userController = new UserController();
+    ShoppingCartController shoppingCartController = new ShoppingCartController();
+    OrderController orderController = new OrderController();
+    CupcakeController cupcakeController = new CupcakeController();
 
     // Routing
 
     app.get("/", ctx -> ctx.render("index.html"));
     userController.addRoutes(app, connectionPool);
+    shoppingCartController.addRoutes(app, connectionPool);
+    orderController.addRoutes(app, connectionPool);
+    cupcakeController.addRoutes(app, connectionPool);
 
 }

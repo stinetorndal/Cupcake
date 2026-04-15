@@ -12,7 +12,7 @@ public class ShoppingCart {
     public List<OrderLine> getOrderLines() { return orderlines; }
 
     //Udregner kurvens totalpris (hver ordrelinje lagt sammen)
-    public double totalPrice() {
+    public double getTotalPrice() {
         double totalPrice = 0;
 
         for (OrderLine orderLine : orderlines) {

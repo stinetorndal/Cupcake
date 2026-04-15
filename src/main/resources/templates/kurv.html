@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -8,16 +7,16 @@
     <title>Olsker cupcakes - Byg din egen</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+    <link href="/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
 </head>
 
 <body>
 <header class="top-bar">
     <div class="info-text">
-        DU ER LOGGET IND SOM: <span th:text="${session.user.email}">bruger1234</span>
+        DU ER LOGGET IND SOM: <span th:text="${session.currentUser.email}">Bruger</span>
     </div>
     <div class="user-menu">
-        <a href="kurv.html" class="btn-min-side">KURV</a>
+        <a href="/kurv" class="btn-min-side">KURV</a>
     </div>
 </header>
 
@@ -31,9 +30,10 @@
     <div class="left-side">
         <div class="content-box">
             <h2>Din Information</h2>
-            <p><strong>Navn:</strong> <span th:text="${session.currentUser.firstName + ' ' + session.currentUser.lastName}">Stine Jensen</span></p>
-            <p><strong>Email:</strong> <span th:text="${session.currentUser.email}">stine@test.dk</span></p>
-            <p><strong>Din Saldo:</strong> <span th:text="${session.currentUser.balance}">100</span> kr.</p>
+            <p><strong>Navn:</strong> <span th:text="${session.currentUser.firstName + ' ' + session.currentUser.lastName}"></span></p>
+            <p><strong>Email:</strong> <span th:text="${session.currentUser.email}"></span></p>
+           <strong>Din Saldo:</strong> <span th:text="${session.currentUser.balance}"></span> kr.</p>
+
         </div>
 
         <div class="content-box">
@@ -46,14 +46,16 @@
                     <th>Pris</th>
                 </tr>
                 <div class="navigation-buttons">
-                    <a href="/shop" class="btn-flere">← Tilbage til bestilling</a>
+                    <a href="/bygdinegencupcake" class="btn-flere">← Tilbage til bestilling</a>
                 </div>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Chokolade m. Vanilje</td>
-                    <td>2 stk</td>
-                    <td>30.00 kr.</td>
+                <tr th:each="line : ${shoppingcart.orderLines}">
+                    <td th:text="${line.cupcake.bottom.name} + ' m. ' + ${line.cupcake.topping.name}">Beskrivelse</td>
+
+                    <td th:text="${line.quantity} + ' stk'">Antal</td>
+
+                    <td th:text="${line.orderLinePrice} + ' kr.'">Pris</td>
                 </tr>
                 </tbody>
             </table>
@@ -64,9 +66,10 @@
         <div class="price-summary">
             <div class="total-row">
                 <span>Total:</span>
-                <span>30.00 kr.</span>
+                <span th:text="${shoppingcart.totalPrice} + ' kr.'">0.00 kr.</span>
             </div>
-            <p class="moms-text">Heraf moms: 7.50 kr.</p>
+            <p class="moms-text">
+                Heraf moms: <span th:text="${shoppingcart.totalPrice * 0.20}"></span> kr.</p>
 
             <form action="/pay" method="post">
                 <button type="submit" class="btn-tilfoej">BETAL NU</button>

@@ -3,7 +3,9 @@ import app.app.exceptions.DatabaseException;
 import app.entities.Customer;
 import app.entities.User;
 import app.persistence.ConnectionPool;
+import app.persistence.CupcakeComponentMapper;
 import app.persistence.UserMapper;
+import app.services.CupcakeService;
 import app.services.UserService;
 import io.javalin.http.Context;
 import io.javalin.Javalin;
@@ -16,11 +18,11 @@ public class UserController {
 
         app.get("/opretbruger", ctx -> ctx.render("opretbruger.html"));
         app.post("/register", ctx -> register(ctx, connectionPool));
-
         app.get("/login", ctx -> ctx.render("login.html"));
         app.post("/login", ctx -> login(ctx, connectionPool));
         app.post("/logout", ctx -> logout(ctx));
-    }
+        }
+
     public void register (Context ctx, ConnectionPool connectionPool) {
         User newUser = new User(
                 ctx.formParam("firstname"),
@@ -42,16 +44,21 @@ public class UserController {
     public void login(Context ctx, ConnectionPool connectionPool) {
         String email = ctx.formParam("email");
         String password = ctx.formParam("password");
+
         try {
             // Vi kalder UserMapper for at se om brugeren findes
             User user = UserMapper.login(email, password, connectionPool);
-            // Bruger gemmes i session
-            ctx.sessionAttribute("currentUser", user);
-
+            if (user instanceof Customer) {
+                Customer customer= (Customer) user;
+                ctx.sessionAttribute("currentUser", customer);
+            } else {
+                // Bruger gemmes i session
+                ctx.sessionAttribute("currentUser", user);
+            }
             if (user.getRole().equals("admin")) {
                 ctx.render("admin.html");
             }else {
-                ctx.render("bygdinegencupcake.html");
+                ctx.redirect("/bygdinegencupcake");
             }
 
         } catch (DatabaseException e) {

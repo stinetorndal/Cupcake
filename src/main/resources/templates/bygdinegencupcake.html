@@ -16,7 +16,7 @@
         DU ER LOGGET IND SOM: <span th:text="${session.currentUser.email}">Bruger</span>
     </div>
     <div class="user-menu">
-        <a href="kurv.html" class="btn-min-side">KURV</a>
+        <a href="/kurv" class="btn-min-side">KURV</a>
     </div>
 </header>
 
@@ -49,17 +49,15 @@
             <label for="top">TOP</label>
             <select name="top" id="top" required>
                 <option value="" disabled selected>Vælg topping...</option>
-                <option th:each="top : ${toppings}" th:value="${top.id}" th:text="${top.name} + ' - ' + ${top.price} + ' kr.'">
-                    Chokolade - 5.00 kr.
-                </option>
+                <option th:each="top : ${toppings}" th:value="${top.componentId}" th:text="${top.name} + ' - ' + ${top.price} + ' kr.'">
+                    </option>
             </select>
 
             <label for="bund">BUND</label>
             <select name="bund" id="bund" required>
                 <option value="" disabled selected>Vælg bund...</option>
-                <option th:each="bund : ${bottoms}" th:value="${bund.id}" th:text="${bund.name} + ' - ' + ${bund.price} + ' kr.'">
-                    Vanilje - 10.00 kr.
-                </option>
+                <option th:each="bund : ${bottoms}" th:value="${bund.componentId}" th:text="${bund.name} + ' - ' + ${bund.price} + ' kr.'">
+                     </option>
             </select>
             <br><br>
             <div class="quantity-selector">
@@ -72,8 +70,7 @@
             <button type="submit" class="btn-tilfoej">TILFØJ TIL KURV</button>
         </div>
 
-        <a href="/shop" class="btn-flere">TILFØJ FLERE</a>
-    </form>
+        </form>
 </main>
 
 <footer class="bottom-decoration">

@@ -57,6 +57,11 @@ import java.util.List;
                 String firstName = rs.getString("first_name");
                 String lastName = rs.getString("last_name");
                 String role = rs.getString("role");
+
+                if (role.equals("customer")) {
+                    double balance = rs.getDouble("balance");
+                    return  new Customer(id, firstName, lastName, email, password, role, balance);
+                }
                 return new User(id, firstName, lastName, email, password, role);
             } else {
                 throw new DatabaseException("Fejl i login. Prøv igen.");

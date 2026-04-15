@@ -2,6 +2,7 @@ package app.controllers;
 
 import app.app.exceptions.DatabaseException;
 import app.entities.Customer;
+import app.entities.ShoppingCart;
 import app.persistence.ConnectionPool;
 import app.persistence.OrderMapper;
 import app.services.PaymentService;
@@ -14,8 +15,7 @@ public class OrderController {
 
     public void addRoutes(Javalin app, ConnectionPool connectionPool) {
 
-        app.get("/kurv", ctx -> ctx.render("kurv.html"));
-        //Når kunde klikker på betaling, "pay" ligger i html:
+           //Når kunde klikker på betaling, "pay" ligger i html:
         app.post("/pay", ctx -> handlePayment(ctx, connectionPool));
         app.get("/ordrebekraeftelse.html", ctx -> ctx.render ("ordrebekraeftelse.html"));
     }
@@ -23,23 +23,27 @@ public class OrderController {
 
     public void handlePayment (Context ctx, ConnectionPool connectionPool) {
         Customer customer = ctx.sessionAttribute("currentUser");
-        double total = 30.0; //Dummy fra kurven til test
-
-        try {
-            // Betaling
-            PaymentService.Payment(customer, total, connectionPool);
-            // Gem ordre
-            OrderMapper.saveOrderInDB(customer.getUserId(), connectionPool);
-            //Send tal til ordrebekraeftelse.html
-            ctx.attribute("total", total);
-            ctx.attribute("moms", PaymentService.calculateVAT(total));
-
-            ctx.render("ordrebekraeftelse.html");
-
-        } catch (DatabaseException e) {
-            ctx.attribute("message", e.getMessage());
+        ShoppingCart shoppingCart = ctx.sessionAttribute("shoppingcart");
+        if (shoppingCart == null || shoppingCart.getOrderLines().isEmpty()) {
+            ctx.attribute("message", "Din kurv er tom");
             ctx.render("kurv.html");
         }
+            double total = shoppingCart.getTotalPrice();
 
+            try {
+                // Betaling
+                PaymentService.Payment(customer, total, connectionPool);
+                // Gem ordre
+                OrderMapper.saveOrderInDB(customer.getUserId(), connectionPool);
+                //Send tal til ordrebekraeftelse.html
+                ctx.attribute("total", total);
+                ctx.attribute("moms", PaymentService.calculateVAT(total));
+                ctx.render("ordrebekraeftelse.html");
+
+            } catch (DatabaseException e) {
+                ctx.attribute("message", e.getMessage());
+                ctx.render("kurv.html");
+            }
+
+        }
     }
-}

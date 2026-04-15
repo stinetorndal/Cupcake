@@ -45,6 +45,9 @@ public class ShoppingCartController {
 
     public void showCart(Context ctx) {
         ShoppingCart shoppingCart = ctx.sessionAttribute("shoppingcart");
+        if (shoppingCart == null){
+            shoppingCart = new ShoppingCart(new ArrayList<>());
+        }
         ctx.attribute("shoppingcart", shoppingCart);
         ctx.render("kurv.html");
     }

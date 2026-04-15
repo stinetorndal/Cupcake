@@ -19,8 +19,8 @@ public class CupcakeController {
 
     public void showCupcakeComponents(Context ctx, ConnectionPool connectionPool) {
         try {
-            List<Topping> allToppings = new ArrayList<>(CupcakeService.getToppings(connectionPool));
-            List<Bottom> allBottoms = new ArrayList<>(CupcakeService.getBottoms(connectionPool));
+            List<Topping> allToppings = CupcakeService.getToppings(connectionPool);
+            List<Bottom> allBottoms = CupcakeService.getBottoms(connectionPool);
 
             ctx.attribute("toppings", allToppings);
             ctx.attribute("bottoms", allBottoms);
