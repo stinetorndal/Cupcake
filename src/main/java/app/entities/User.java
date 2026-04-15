@@ -22,6 +22,8 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        //Tilføjet hardcoded for at få UserController til at virke
+        this.role = "customer";
     }
 
     public int getUserId() { return userId; }

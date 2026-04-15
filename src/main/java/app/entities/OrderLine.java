@@ -18,6 +18,16 @@ public class OrderLine {
         this.discount = discount;
     }
 
+    public OrderLine(Cupcake cupcake, int quantity, double unitPrice) {
+        this.cupcake = cupcake;
+        this.quantity = quantity;
+        this.unitPrice = unitPrice;
+    }
+
+    public double getOrderLinePrice() {
+        return unitPrice * quantity;
+    }
+
     public int getOrderLineId() {
         return orderLineId;
     }

@@ -11,6 +11,16 @@ public class ShoppingCart {
 
     public List<OrderLine> getOrderLines() { return orderlines; }
 
+    //Udregner kurvens totalpris (hver ordrelinje lagt sammen)
+    public double totalPrice() {
+        double totalPrice = 0;
+
+        for (OrderLine orderLine : orderlines) {
+            totalPrice += orderLine.getOrderLinePrice();
+        }
+        return totalPrice;
+    }
+
     public void setOrderLines(List<OrderLine> orderlines) { this.orderlines = orderlines; }
 
     @Override
