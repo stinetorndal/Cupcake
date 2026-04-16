@@ -38,8 +38,8 @@ public class OrderController {
                 PaymentService.Payment(customer, total, connectionPool);
                 // Gem ordre
                 OrderMapper.saveOrderInDB(customer.getUserId(), connectionPool);
-                double newBalance = customer.getBalance() - total;
-                customer.setBalance((newBalance));
+                double newBalance = customer.getBalance();
+                customer.setBalance(newBalance);
                 //Træk penge lokalt, så saldo passer med det samme
                 ctx.sessionAttribute("currentUser", customer);
                 //Opdater session
