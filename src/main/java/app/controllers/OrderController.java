@@ -38,18 +38,22 @@ public class OrderController {
                 PaymentService.Payment(customer, total, connectionPool);
                 // Gem ordre
                 OrderMapper.saveOrderInDB(customer.getUserId(), connectionPool);
+                double newBalance = customer.getBalance() - total;
+                customer.setBalance((newBalance));
                 //Træk penge lokalt, så saldo passer med det samme
-                customer.setBalance((customer.getBalance() -  total));
                 ctx.sessionAttribute("currentUser", customer);
                 //Opdater session
-                ctx.sessionAttribute("shoppingcart", null);
+                ctx.attribute("nyBalance", newBalance);
                 //Send tal til ordrebekraeftelse.html
                 ctx.attribute("total", total);
                 ctx.attribute("moms", PaymentService.calculateVAT(total));
+
+                ctx.sessionAttribute("shoppingcart", null);
                 ctx.render("ordrebekraeftelse.html");
 
             } catch (DatabaseException e) {
                 ctx.attribute("message", e.getMessage());
+                ctx.attribute("shoppingcart", shoppingCart);
                 ctx.render("kurv.html");
             }
 

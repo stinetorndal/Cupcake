@@ -51,14 +51,12 @@ public class UserController {
             if (user instanceof Customer) {
                 Customer customer= (Customer) user;
                 ctx.sessionAttribute("currentUser", customer);
+                ctx.redirect("/bygdinegencupcake");
             } else {
                 // Bruger gemmes i session
                 ctx.sessionAttribute("currentUser", user);
-            }
-            if (user.getRole().equals("admin")) {
+                ctx.attribute("valgtVisning", "velkomst");
                 ctx.render("admin.html");
-            }else {
-                ctx.redirect("/bygdinegencupcake");
             }
 
         } catch (DatabaseException e) {
@@ -70,7 +68,7 @@ public class UserController {
 
         public void logout(Context ctx) {
         ctx.consumeSessionAttribute("currentUser"); //sletter bruger fra hukommelse
-        ctx.redirect("/login");
+        ctx.redirect("/index");
     }
 
     }
