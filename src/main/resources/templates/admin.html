@@ -55,12 +55,14 @@
         <div class="hotpink-line-thick spacer-line" th:if="${foundUser != null}"></div>
 
         <div class="admin-actions" th:if="${foundUser != null}">
+
             <form action="/admin/slet-kunde" method="post" onsubmit="return confirm('Er du sikker på du vil slette denne kunde?')">
                 <input type="hidden" name="user_id" th:value="${foundUser.userId}">
                 <button type="submit" class="btn-slet">SLET KUNDE</button>
             </form>
 
             <a th:href="@{/admin/kunde-detaljer(id=${foundUser.userId})}" class="btn-tilfoej">OPDATER SALDO / SE PROFIL</a>
+
         </div>
     </section>
 
@@ -100,4 +102,20 @@
             </tr>
             </thead>
             <tbody>
-            <tr
+            <tr th:each="o : ${alleOrdrer}">
+                <td th:text="${o.orderId}"></td>
+                <td th:text="${o.userId}"></td>
+                <td th:text="${o.timeStamp}"></td>
+                <td th:text="${o.status}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+
+<footer class="bottom-decoration">
+    <div class="hotpink-line-thick"></div>
+</footer>
+
+</body>
+</html>

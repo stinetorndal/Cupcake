@@ -15,6 +15,12 @@ public class Order {
         this.shoppingCart = shoppingCart;
     }
 
+    public Order(int orderId, int userId, LocalDate timeStamp) {
+        this.orderId = orderId;
+        this.userId = userId;
+        this.timeStamp = timeStamp;
+
+    }
     public int getOrderId() { return orderId; }
 
     public void setOrderId(int orderId) { this.orderId = orderId; }

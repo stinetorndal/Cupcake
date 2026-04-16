@@ -4,7 +4,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Annie+Use+Your+Telescope&display=swap" rel="stylesheet">
-    <title>Olsker cupcakes - Byg din egen</title>
+    <title>Olsker Cupcakes - Kundeprofil</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
@@ -13,42 +13,46 @@
 <body>
 <header class="top-bar">
     <div class="info-text">
-        DU ER LOGGET IND SOM: <span th:text="${session.currentUser.email}">Bruger</span>
+        LOGGET IND SOM ADMIN: <span th:text="${session.currentUser.firstName}">Admin</span>
     </div>
     <div class="user-menu">
-        <a href="/kurv" class="btn-min-side">KURV</a>
+        <a href="/admin/alle-kunder" class="btn-min-side">TILBAGE</a>
+        <a href="/logout" class="btn-min-side">LOG UD</a>
     </div>
 </header>
 
 <section class="logo-container">
-    <h1>DIN PROFIL</h1>
+    <h1>KUNDEPROFIL</h1>
     <div class="hotpink-line-thick"></div>
 </section>
 
-<nav class="customer-nav">
-    <a href="/byg-cupcake" class="btn-min-side">KØB CUPCAKES</a>
-    <a href="/se-ordrer" class="btn-min-side">SE DINE ORDRER</a>
-    <a href="/hent-kurv" class="btn-min-side">SE GEMT INDKØBSKURV</a>
-</nav>
-<section class="selection-box customer-details">
+<section class="selection-box customer-details centered-content">
     <h2 class="view-title">ADMINISTRER SALDO</h2>
+
+    <div class="info-highlight-box">
+        <p><strong>KUNDE:</strong> <span th:text="${selectedCustomer.firstName} + ' ' + ${selectedCustomer.lastName}">Navn</span></p>
+        <p><strong>EMAIL:</strong> <span th:text="${selectedCustomer.email}">Email</span></p>
+    </div>
+
     <p>Nuværende saldo: <strong><span th:text="${selectedCustomer.balance}">0</span> kr.</strong></p>
 
-    <form action="/admin/update-balance" method="post" class="search-form">
+    <form action="/admin/update-balance" method="post" class="admin-balance-form">
         <input type="hidden" name="customerId" th:value="${selectedCustomer.userId}">
 
-        <input type="number" name="amount" placeholder="Beløb at indsætte..." min="1" required>
-        <button type="submit" class="btn-tilfoej">INDSÆT PENGE</button>
+        <div class="balance-input-group">
+            <input type="number" name="amount" placeholder="Beløb..." min="1" required>
+            <button type="submit" class="btn-tilfoej">INDSÆT PENGE</button>
+        </div>
     </form>
 </section>
 
 <main class="customer-content">
 
-    <section th:if="${valgtVisning == 'kurv'}" class="selection-box customer-details">
+    <section th:if="${valgtVisning == 'kurv'}" class="selection-box customer-details wide-box">
         <h2 class="view-title">GEMT INDKØBSKURV</h2>
         <div class="hotpink-line-thick small-spacer-line"></div>
 
-        <table class="data-table" th:if="${kurvListe != null}">
+        <table class="data-table" th:if="${kurvListe != null && !kurvListe.isEmpty()}">
             <thead>
             <tr>
                 <th>TOP</th>
@@ -66,20 +70,14 @@
             </tr>
             </tbody>
         </table>
-
-        <div class="centered-content" th:if="${kurvListe != null}">
-            <form action="/betal" method="post">
-                <button type="submit" class="btn-tilfoej">KØB NU</button>
-            </form>
-        </div>
-        <p class="centered-content" th:if="${kurvListe == null}">Din kurv er tom.</p>
+        <p class="centered-content" th:if="${kurvListe == null || kurvListe.isEmpty()}">Ingen gemt kurv fundet.</p>
     </section>
 
-    <section th:if="${valgtVisning == 'historik'}" class="selection-box customer-details">
-        <h2 class="view-title">DINE ORDREHISTORIK</h2>
+    <section th:if="${valgtVisning == 'historik'}" class="selection-box customer-details wide-box">
+        <h2 class="view-title">ORDREHISTORIK</h2>
         <div class="hotpink-line-thick small-spacer-line"></div>
 
-        <table class="data-table">
+        <table class="data-table" th:if="${ordreHistorik != null && !ordreHistorik.isEmpty()}">
             <thead>
             <tr>
                 <th>DATO</th>
@@ -90,13 +88,14 @@
             </thead>
             <tbody>
             <tr th:each="ordre : ${ordreHistorik}">
-                <td th:text="${ordre.createdAt}"></td>
+                <td th:text="${ordre.timeStamp}"></td>
                 <td th:text="${ordre.orderId}"></td>
                 <td th:text="${ordre.status}"></td>
                 <td th:text="${ordre.totalPrice} + ' kr.'"></td>
             </tr>
             </tbody>
         </table>
+        <p class="centered-content" th:if="${ordreHistorik == null || ordreHistorik.isEmpty()}">Ingen ordrer fundet.</p>
     </section>
 
 </main>

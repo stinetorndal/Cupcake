@@ -1,6 +1,8 @@
 package app.persistence;
 
 import app.entities.Customer;
+import app.entities.Order;
+import app.entities.ShoppingCart;
 import app.entities.User;
 /*
 import app.entities.Customer; // Hvis du har en Customer subklasse
@@ -8,10 +10,12 @@ import app.entities.Admin;    // Hvis du har en Admin subklasse */
 import app.app.exceptions.DatabaseException;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-    public class UserMapper {
+public class UserMapper {
         public static void createUser(User user, ConnectionPool connectionPool)
                 throws DatabaseException {
 
@@ -38,6 +42,29 @@ import java.util.List;
                 throw new DatabaseException(msg, e.getMessage());
             }
         }
+
+    public static Customer getCustomerById(int userId, ConnectionPool connectionPool) throws DatabaseException {
+        String sql = "SELECT * FROM users WHERE user_id = ?";
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Customer(
+                        rs.getInt("user_id"),
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
+                        rs.getString("email"),
+                        "", // Password behøves ikke her
+                        "customer",
+                        rs.getDouble("balance")
+                );
+            }
+            throw new DatabaseException("Brugeren blev ikke fundet");
+        } catch (SQLException e) {
+            throw new DatabaseException("Fejl ved hentning af bruger");
+        }
+    }
 
     public static User login(String email, String password, ConnectionPool connectionPool)
             throws DatabaseException {
@@ -70,6 +97,29 @@ import java.util.List;
             throw new DatabaseException("Fejl ved database-opslag: " + e.getMessage());
         }
     }
+// Her henter admin alle ordrer
+public static List<Order> getAllOrders(ConnectionPool connectionPool)
+        throws DatabaseException {
+    List<Order> orderList = new ArrayList<>();
+
+    String sql = "SELECT * FROM orders";
+
+    try (Connection connection = connectionPool.getConnection();
+         PreparedStatement ps = connection.prepareStatement(sql)) {
+
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            int id = rs.getInt("order_id");
+            int userId = rs.getInt("user_id");
+            LocalDate date = rs.getDate("created_at").toLocalDate();
+            orderList.add(new Order(id, userId, date));
+        }
+    } catch (SQLException e) {
+        throw new DatabaseException("Fejl ved hentning  ordrer: " + e.getMessage());
+    }
+    return orderList;
+}
 
     // Her henter admin alle kunder
     public static List<Customer> getAllCustomers(ConnectionPool connectionPool)
@@ -117,6 +167,32 @@ import java.util.List;
             }
         } catch (SQLException e) {
             throw new DatabaseException("Databasefejl ved saldoopdatering", e.getMessage());
+        }
+    }
+
+    public static Customer getCustomerByEmail(String email, ConnectionPool connectionPool) throws DatabaseException {
+        String sql = "SELECT * FROM users WHERE email = ? AND role = 'customer'";
+
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return new Customer(
+                        rs.getInt("user_id"),
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
+                        rs.getString("email"),
+                        "",
+                        "customer",
+                        rs.getDouble("balance")
+                );
+            }
+            throw new DatabaseException("Kunden findes ikke");
+        } catch (SQLException e) {
+            throw new DatabaseException("Databasefejl ved søgning: " + e.getMessage());
         }
     }
 }

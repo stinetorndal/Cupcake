@@ -32,6 +32,8 @@ body {
 /* --- KNAPPER OG NAVIGATION --- */
 .user-menu {
     text-align: right;
+    display: flex;
+    gap: 10px;
 }
 
 .btn-min-side {
@@ -97,8 +99,8 @@ body {
 /* --- BYG-SELV SIDEN (SIDE-BY-SIDE LAYOUT) --- */
 .config-container {
     display: flex;
-    flex-direction: row;      /* HER tvinger vi dem til at stå ved siden af hinanden */
-    flex-wrap: nowrap;        /* De må IKKE hoppe under hinanden */
+    flex-direction: row;
+    flex-wrap: nowrap;
     justify-content: center;
     align-items: flex-start;
     gap: 50px;
@@ -109,10 +111,10 @@ body {
 
 .cupcake-grid {
     display: grid;
-    grid-template-columns: repeat(2, 200px); /* Faste pixels så de ikke fylder alt */
+    grid-template-columns: repeat(2, 200px);
     grid-template-rows: repeat(3, 200px);
     gap: 15px;
-    flex-shrink: 0;           /* Forhindrer at gridet bliver mast */
+    flex-shrink: 0;
 }
 
 .cupcake-grid img {
@@ -139,6 +141,7 @@ body {
     width: 300px;
     border: 2px solid #411200;
     box-shadow: 8px 8px 0px #ff69b4;
+    margin: 20px auto; /* Sikrer centrering af boksen selv */
 }
 
 .selection-box label {
@@ -148,7 +151,30 @@ body {
     margin-top: 15px;
 }
 
-.selection-box select, .login-box input {
+.admin-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+
+.admin-actions button,
+.admin-actions .btn-tilfoej {
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    display: block;
+}
+
+/* Sørg for at link-knappen (Opdater saldo) opfører sig som en knap */
+.admin-actions .btn-tilfoej {
+    text-decoration: none;  /* Fjern understregning */
+    padding: 10px 0;
+}
+
+.selection-box select, .login-box input, .admin-balance-form input {
     width: 100%;
     padding: 10px;
     font-family: sans-serif;
@@ -175,7 +201,7 @@ body {
 /* --- BANNER ANIMATION (INDEX) --- */
 .banner-section {
     display: flex;
-    flex-direction: column; /* Centrerer animationen alene på index */
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     margin: 30px 0;
@@ -188,6 +214,7 @@ body {
     border: 2px solid #411200;
     border-radius: 10px;
 }
+
 /* --- BETALINGSSIDE LAYOUT --- */
 .payment-wrapper {
     display: flex;
@@ -197,13 +224,8 @@ body {
     padding: 20px 0;
 }
 
-.left-side {
-    flex: 2;
-}
-
-.right-side {
-    flex: 1;
-}
+.left-side { flex: 2; }
+.right-side { flex: 1; }
 
 .content-box {
     background-color: #fff;
@@ -250,11 +272,7 @@ body {
     text-align: center;
 }
 
-.btn-pay {
-    margin-top: 20px;
-    /* Her genbruges logikken .btn-tilfoej */
-}
-
+/* --- ANIMATION KEYFRAMES --- */
 .banner-slides {
     display: flex;
     width: 900%;
@@ -291,42 +309,7 @@ body {
     padding: 50px 20px;
 }
 
-.btn-flere {
-    display: block;
-    text-align: center;
-    margin-top: 25px;
-    font-family: "Annie Use Your Telescope", cursive;
-    font-size: 1.6rem;
-    color: #411200;
-    text-decoration: none;
-    border: 2px solid #411200;
-    border-radius: 20px;
-    padding: 5px;
-}
-
-/* --- POPUP STYLING --- */
-.popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-}
-
-.popup-content {
-    background-color: #ffffff;
-    text-align: center;
-    padding: 20px;
-    border: 4px solid #411200;
-    border-radius: 15px;
-}
 /* --- ADMIN-SIDE --- */
-/* Containeren der styrer de to rækker */
 .admin-nav {
     display: flex;
     flex-direction: column;
@@ -335,10 +318,9 @@ body {
     padding: 20px;
 }
 
-/* Søge-sektionen */
 .search-wrap {
     width: 100%;
-    max-width: 600px; /* Her styres bredde af søgefelt */
+    max-width: 600px;
 }
 
 .search-form {
@@ -347,27 +329,51 @@ body {
     gap: 10px;
 }
 
-.search-form input {
-    flex-grow: 1;
-    padding: 12px;
-    border: 2px solid #411200;
-    border-radius: 8px;
-    font-size: 1.1rem;
-}
-
-/* Knappe-sektionen */
 .button-wrap {
     display: flex;
     gap: 20px;
     justify-content: center;
 }
 
-.button-wrap .btn-min-side {
-    min-width: 150px;
+/* --- CENTRERINGS HJÆLPERE --- */
+.centered-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
+    justify-content: center;
 }
-/* --- QTY-KNAP PÅ BYGDINEGENCUPCAKE--- */
 
+/* --- KUNDESIDE / KUNDE-DETALJER --- */
+.info-highlight-box {
+    background-color: #fff5f8;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #ff69b4;
+    margin-bottom: 15px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.admin-balance-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.balance-input-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.balance-input-group input {
+    text-align: center;
+    width: 150px;
+}
+
+/* --- QTY-KNAP --- */
 .quantity-selector input[type="number"] {
     width: 100px;
     height: 50px;
@@ -379,50 +385,12 @@ body {
     margin-left: 10px;
 }
 
-
-.quantity-selector input::-webkit-outer-spin-button,
-.quantity-selector input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-.quantity-selector input[type="number"] {
-    -moz-appearance: textfield;
-}
-
-
-.quantity-selector label {
-    font-size: 22px;
-    font-weight: bold;
-}
-/* --- OA-layout --- */
-.confirmation-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 60px 0;
-    width: 100%;
-}
-
-.confirmation-box {
-    width: 450px;
-    text-align: center;
-    margin-bottom: 30px;
-}
-.centered-content {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-/* --- ADMIN --- */
-/* Gør boksene bredere på admin-siden når der er tabeller */
+/* --- ADMIN SPECIALS --- */
 .wide-box {
     max-width: 950px;
     width: 90%;
 }
 
-/* Slet-knap i admin (mørkebrun) */
 .btn-slet {
     background-color: #411200;
     color: #fff;
@@ -437,10 +405,32 @@ body {
 }
 
 .btn-slet:hover {
-    background-color: #ff0000; /* Bliver rød når man holder musen over */
+    background-color: #ff0000;
 }
 
 .spacer-line {
     margin: 25px auto;
     width: 100%;
+}
+.login-footer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn-link {
+    font-family: "Annie Use Your Telescope", cursive;
+    font-size: 1.2rem;
+    color: #411200;
+    text-decoration: underline;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-link:hover {
+    color: #fff;
+}
+
+
+.selection-box {
+    padding-bottom: 40px;
 }

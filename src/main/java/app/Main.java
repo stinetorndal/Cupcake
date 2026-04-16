@@ -1,9 +1,6 @@
 import app.config.SessionConfig;
 import app.config.ThymeleafConfig;
-import app.controllers.CupcakeController;
-import app.controllers.OrderController;
-import app.controllers.ShoppingCartController;
-import app.controllers.UserController;
+import app.controllers.*;
 import app.entities.ShoppingCart;
 import app.persistence.ConnectionPool;
 import app.persistence.DBconfig;
@@ -30,6 +27,7 @@ public static void main(String[] args) {
     ShoppingCartController shoppingCartController = new ShoppingCartController();
     OrderController orderController = new OrderController();
     CupcakeController cupcakeController = new CupcakeController();
+    AdminController adminController = new AdminController();
 
     // Routing
 
@@ -38,5 +36,6 @@ public static void main(String[] args) {
     shoppingCartController.addRoutes(app, connectionPool);
     orderController.addRoutes(app, connectionPool);
     cupcakeController.addRoutes(app, connectionPool);
+    adminController.addRoutes(app, connectionPool );
 
 }
