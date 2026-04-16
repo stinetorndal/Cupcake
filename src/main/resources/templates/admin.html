@@ -7,14 +7,14 @@
     <title>Olsker Cupcakes - ADMIN</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+    <link href="/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
 </head>
 
 <body>
 <header class="top-bar">
     <div class="info-text">
         ADMINISTRATION - OLSKER CUPCAKES<br>
-        <span class="sub-text" th:text="${session.user != null} ? 'LOGGET IND SOM ADMIN: ' + ${session.user.firstName} : 'ADMIN PANEL'"></span>
+        <span class="sub-text" th:text="${session.currentUser != null} ? 'LOGGET IND SOM ADMIN: ' + ${session.currentUser.firstName} : 'ADMIN PANEL'"></span>
     </div>
     <div class="user-menu">
         <a href="/logout" class="btn-min-side">LOG UD</a>
@@ -29,7 +29,7 @@
 <nav class="admin-nav">
     <div class="search-wrap">
         <form action="/admin/soeg" method="post" class="search-form">
-            <input type="text" name="email" placeholder="Søg på email..." required>
+            <input type="text" name="email" placeholder="Søg på kundens email..." required>
             <button type="submit" class="btn-min-side">SØG KUNDE</button>
         </form>
     </div>
@@ -50,21 +50,21 @@
             <p><strong>SALDO:</strong> <span th:text="${foundUser.balance} + ' kr.'"></span></p>
         </div>
 
-        <p class="centered-content" th:if="${foundUser == null}">Ingen kunde fundet.</p>
+        <p class="centered-content" th:if="${foundUser == null}">Ingen kunde fundet med den email.</p>
 
-        <div class="hotpink-line-thick spacer-line"></div>
+        <div class="hotpink-line-thick spacer-line" th:if="${foundUser != null}"></div>
 
         <div class="admin-actions" th:if="${foundUser != null}">
-            <form action="/admin/slet-kunde" method="post">
+            <form action="/admin/slet-kunde" method="post" onsubmit="return confirm('Er du sikker på du vil slette denne kunde?')">
                 <input type="hidden" name="user_id" th:value="${foundUser.userId}">
-                <button type="submit" class="btn-tilfoej" style="background-color: #411200;">SLET KUNDE</button>
+                <button type="submit" class="btn-slet">SLET KUNDE</button>
             </form>
-            <a th:href="@{/admin/opdater-saldo(id=${foundUser.userId})}" class="btn-tilfoej">SÆT PENGE IND</a>
-            <a th:href="@{/admin/kunde-ordrer(id=${foundUser.userId})}" class="btn-tilfoej">SE ORDRER</a>
+
+            <a th:href="@{/admin/kunde-detaljer(id=${foundUser.userId})}" class="btn-tilfoej">OPDATER SALDO / SE PROFIL</a>
         </div>
     </section>
 
-    <section th:if="${valgtVisning == 'alle-kunder'}" class="selection-box user-details" style="max-width: 900px;">
+    <section th:if="${valgtVisning == 'alle-kunder'}" class="selection-box user-details wide-box">
         <h2 class="view-title">ALLE KUNDER</h2>
         <table class="data-table">
             <thead>
@@ -73,6 +73,7 @@
                 <th>NAVN</th>
                 <th>EMAIL</th>
                 <th>SALDO</th>
+                <th>HANDLING</th>
             </tr>
             </thead>
             <tbody>
@@ -81,37 +82,22 @@
                 <td th:text="${u.firstName} + ' ' + ${u.lastName}"></td>
                 <td th:text="${u.email}"></td>
                 <td th:text="${u.balance} + ' kr.'"></td>
+                <td><a th:href="@{/admin/kunde-detaljer(id=${u.userId})}" class="btn-min-side">SE</a></td>
             </tr>
             </tbody>
         </table>
     </section>
 
-    <section th:if="${valgtVisning == 'alle-ordrer'}" class="selection-box user-details" style="max-width: 900px;">
+    <section th:if="${valgtVisning == 'alle-ordrer'}" class="selection-box user-details wide-box">
         <h2 class="view-title">ALLE BESTILLINGER</h2>
         <table class="data-table">
             <thead>
             <tr>
                 <th>ORDRE ID</th>
-                <th>KUNDE ID</th>
+                <th>KUNDE</th>
                 <th>DATO</th>
                 <th>STATUS</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="o : ${alleOrdrer}">
-                <td th:text="${o.orderId}"></td>
-                <td th:text="${o.userId}"></td>
-                <td th:text="${o.createdAt}"></td>
-                <td th:text="${o.status}"></td>
-            </tr>
-            </tbody>
-        </table>
-    </section>
-
-</main>
-
-<footer class="bottom-decoration">
-    <div class="hotpink-line-thick"></div>
-</footer>
-</body>
-</html>
+            <tr

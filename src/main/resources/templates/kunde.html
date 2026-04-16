@@ -4,20 +4,19 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Annie+Use+Your+Telescope&display=swap" rel="stylesheet">
-    <title>Olsker cupcakes - KUNDESIDE</title>
+    <title>Olsker cupcakes - Byg din egen</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+    <link href="/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
 </head>
 
 <body>
 <header class="top-bar">
     <div class="info-text">
-        KUNDESIDE - OLSKER CUPCAKES<br>
-        <span class="sub-text" th:text="${session.user != null} ? 'LOGGET IND SOM: ' + ${session.user.firstName} : 'VELKOMMEN'"></span>
+        DU ER LOGGET IND SOM: <span th:text="${session.currentUser.email}">Bruger</span>
     </div>
     <div class="user-menu">
-        <a href="/logout" class="btn-min-side">LOG UD</a>
+        <a href="/kurv" class="btn-min-side">KURV</a>
     </div>
 </header>
 
@@ -31,6 +30,17 @@
     <a href="/se-ordrer" class="btn-min-side">SE DINE ORDRER</a>
     <a href="/hent-kurv" class="btn-min-side">SE GEMT INDKØBSKURV</a>
 </nav>
+<section class="selection-box customer-details">
+    <h2 class="view-title">ADMINISTRER SALDO</h2>
+    <p>Nuværende saldo: <strong><span th:text="${selectedCustomer.balance}">0</span> kr.</strong></p>
+
+    <form action="/admin/update-balance" method="post" class="search-form">
+        <input type="hidden" name="customerId" th:value="${selectedCustomer.userId}">
+
+        <input type="number" name="amount" placeholder="Beløb at indsætte..." min="1" required>
+        <button type="submit" class="btn-tilfoej">INDSÆT PENGE</button>
+    </form>
+</section>
 
 <main class="customer-content">
 

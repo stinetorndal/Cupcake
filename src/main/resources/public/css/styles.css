@@ -366,3 +366,81 @@ body {
     min-width: 150px;
     text-align: center;
 }
+/* --- QTY-KNAP PÅ BYGDINEGENCUPCAKE--- */
+
+.quantity-selector input[type="number"] {
+    width: 100px;
+    height: 50px;
+    font-size: 28px;
+    text-align: center;
+    border: 3px solid #ff69b4;
+    border-radius: 10px;
+    outline: none;
+    margin-left: 10px;
+}
+
+
+.quantity-selector input::-webkit-outer-spin-button,
+.quantity-selector input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.quantity-selector input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+
+.quantity-selector label {
+    font-size: 22px;
+    font-weight: bold;
+}
+/* --- OA-layout --- */
+.confirmation-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 0;
+    width: 100%;
+}
+
+.confirmation-box {
+    width: 450px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+.centered-content {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+/* --- ADMIN --- */
+/* Gør boksene bredere på admin-siden når der er tabeller */
+.wide-box {
+    max-width: 950px;
+    width: 90%;
+}
+
+/* Slet-knap i admin (mørkebrun) */
+.btn-slet {
+    background-color: #411200;
+    color: #fff;
+    font-family: "Annie Use Your Telescope", cursive;
+    font-size: 1.8rem;
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #411200;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-slet:hover {
+    background-color: #ff0000; /* Bliver rød når man holder musen over */
+}
+
+.spacer-line {
+    margin: 25px auto;
+    width: 100%;
+}

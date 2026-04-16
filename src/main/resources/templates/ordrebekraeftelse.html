@@ -7,16 +7,16 @@
     <title>Olsker cupcakes - Byg din egen</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+    <link href="/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
 </head>
 
 <body>
 <header class="top-bar">
     <div class="info-text">
-        DU ER LOGGET IND SOM: <span th:text="${session.user.email}">bruger1234</span>
+        DU ER LOGGET IND SOM: <span th:text="${session.currentUser.email}">Bruger</span>
     </div>
     <div class="user-menu">
-        <a href="ordrebekraeftelse.html" class="btn-min-side">KURV</a>
+        <a href="/ordrebekraeftelse" class="btn-min-side">KURV</a>
     </div>
 </header>
 
@@ -25,8 +25,8 @@
     <div class="hotpink-line-thick"></div>
 </section>
 
-<main class="admin-content">
-    <div class="selection-box" style="width: 450px; text-align: center;">
+<main class="confirmation-wrapper">
+    <div class="selection-box confirmation-box">
         <h2 class="annie-use-your-telescope-regular">Betaling gennemført</h2>
         <p>Din betaling er gået igennem. Din ordre bliver nu behandlet.</p>
         <p>En ordrebekræftelse er sendt til din email:</p>
@@ -34,7 +34,7 @@
     </div>
 
     <div class="centered-content">
-        <a href="/" class="btn-min-side">TILBAGE TIL FORSIDE</a>
+        <a href="/index" class="btn-min-side">TILBAGE TIL FORSIDE</a>
     </div>
 </main>
 
