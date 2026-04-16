@@ -141,7 +141,7 @@ body {
     width: 300px;
     border: 2px solid #411200;
     box-shadow: 8px 8px 0px #ff69b4;
-    margin: 20px auto; /* Sikrer centrering af boksen selv */
+    margin: 20px auto;
 }
 
 .selection-box label {
@@ -168,9 +168,8 @@ body {
     display: block;
 }
 
-/* Sørg for at link-knappen (Opdater saldo) opfører sig som en knap */
 .admin-actions .btn-tilfoej {
-    text-decoration: none;  /* Fjern understregning */
+    text-decoration: none;
     padding: 10px 0;
 }
 

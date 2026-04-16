@@ -2,7 +2,6 @@ package app.services;
 
 import app.entities.Customer;
 import app.entities.Order;
-import app.entities.User;
 import app.persistence.ConnectionPool;
 import app.persistence.UserMapper;
 import app.app.exceptions.DatabaseException;

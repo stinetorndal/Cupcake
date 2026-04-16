@@ -1,15 +1,10 @@
 package app.controllers;
 
-import app.entities.Cupcake;
 import app.entities.Customer;
-import app.entities.User;
 import app.entities.Order;
 import app.persistence.ConnectionPool;
-import app.persistence.UserMapper;
-import app.persistence.OrderMapper;
 import app.app.exceptions.DatabaseException;
 import app.services.AdminService;
-import app.services.UserService;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import java.util.ArrayList;
@@ -28,16 +23,14 @@ public class AdminController {
         app.post("/admin/soeg", ctx -> handleSearch (ctx, connectionPool));
     }
 
-    //searchCustomerByEmail
-
-    private void showAllOrders(Context ctx, ConnectionPool connectionPool) {
+        private void showAllOrders(Context ctx, ConnectionPool connectionPool) {
         try {
             List<Order> allOrders = AdminService.getAllOrders(connectionPool);
 
             ctx.attribute("valgtVisning", "alle-ordrer");
             ctx.attribute("alleOrdrer", allOrders);
 
-            // VIGTIGT: Vi sender tomme værdier til de andre sektioner
+            // Vi sender tomme værdier til de andre sektioner pga Thymeleaf
             ctx.attribute("brugerListe", new ArrayList<Customer>());
             ctx.attribute("foundUser", null);
 
@@ -55,7 +48,6 @@ public class AdminController {
             ctx.attribute("valgtVisning", "alle-kunder");
             ctx.attribute("brugerListe", allCustomers);
 
-            // En tom liste her
             ctx.attribute("alleOrdrer", new ArrayList<Order>());
             ctx.attribute("foundUser", null);
 
@@ -67,17 +59,15 @@ public class AdminController {
     }
 
     private void showCustomerDetails(Context ctx, ConnectionPool connectionPool) {
-        // Hent ID fra URL (?id=5)
+
         int customerId = Integer.parseInt(ctx.queryParam("id"));
 
         try {
-            // Du skal have en metode i din Mapper/Service der henter én kunde på ID
             Customer selectedCustomer = AdminService.getCustomerById(customerId, connectionPool);
 
             ctx.attribute("selectedCustomer", selectedCustomer);
-            ctx.attribute("valgtVisning", "profil"); // Standard visning
+            ctx.attribute("valgtVisning", "profil");
 
-            // Vi sender tomme lister med for at undgå Thymeleaf fejl i sektionerne nederst
             ctx.attribute("kurvListe", new ArrayList<>());
             ctx.attribute("ordreHistorik", new ArrayList<>());
 
@@ -93,11 +83,9 @@ public class AdminController {
         double amount = Double.parseDouble(ctx.formParam("amount"));
 
         try {
-            // 1. Opdater i databasen via din eksisterende service
+
             AdminService.updateBalance(customerId, amount, connectionPool);
 
-            // 2. For at vise de nye tal, sender vi dem tilbage til kunde-detaljer
-            // Dette kaldes et "Redirect-after-post" pattern
             ctx.redirect("/admin/kunde-detaljer?id=" + customerId);
 
         } catch (DatabaseException e) {
