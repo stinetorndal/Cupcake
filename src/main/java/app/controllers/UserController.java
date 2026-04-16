@@ -20,7 +20,7 @@ public class UserController {
         app.post("/register", ctx -> register(ctx, connectionPool));
         app.get("/login", ctx -> ctx.render("login.html"));
         app.post("/login", ctx -> login(ctx, connectionPool));
-        app.post("/logout", ctx -> logout(ctx));
+        app.get("/logout", ctx -> logout(ctx));
         }
 
     public void register (Context ctx, ConnectionPool connectionPool) {
@@ -68,7 +68,8 @@ public class UserController {
 
         public void logout(Context ctx) {
         ctx.consumeSessionAttribute("currentUser"); //sletter bruger fra hukommelse
-        ctx.redirect("/index");
+        ctx.sessionAttribute("shoppingcart", null); //Tømmer kurv
+        ctx.redirect("/");
     }
 
     }

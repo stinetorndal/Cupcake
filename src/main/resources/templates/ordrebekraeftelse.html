@@ -16,7 +16,7 @@
         DU ER LOGGET IND SOM: <span th:text="${session.currentUser.email}">Bruger</span>
     </div>
     <div class="user-menu">
-        <a href="/index" class="btn-min-side">LOG UD</a>
+        <a href="/logout" class="btn-min-side">LOG UD</a>
     </div>
 </header>
 
@@ -31,13 +31,10 @@
         <p>Din betaling er gået igennem. Din ordre bliver nu behandlet.</p>
         <p>Din nye balance er: <strong><span th:text="${nyBalance}">0.0</span> kr.</strong></p>
         <p>En ordrebekræftelse er sendt til din email:</p>
-        <p><strong><span th:text="${session.currentUser.email}">test@test.dk</span></strong></p>
+        <p><strong><span th:text="${session.currentUser.email}">Bruger</span></strong></p>
     </div>
 
-    <div class="centered-content">
-        <a href="/index" class="btn-min-side">TILBAGE TIL FORSIDE</a>
-    </div>
-</main>
+    </main>
 
 <footer class="bottom-decoration">
     <div class="hotpink-line-thick"></div>
